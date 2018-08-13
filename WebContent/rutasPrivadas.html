@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <!-- Required meta tags always come first -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Rute.Ar</title>
+        <link href="css/style.css" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- Material Design Bootstrap -->
+        <link href="css/mdb.min.css" rel="stylesheet">
+    </head>
+    <body class="fixed-sn cyan-skin">
+        <!--Double navigation-->
+        <header>
+            <!-- Sidebar navigation -->
+            <div id="slide-out" class="side-nav sn-bg-4 fixed">
+                <ul class="custom-scrollbar">
+                    <!-- Logo -->
+                    <li>
+                        <div class="logo-wrapper waves-light">
+                            <a href=""><h1 class="logo">Rute.Ar</h1></a>
+                        </div>
+                    </li>
+                    <!--/. Logo -->
+                    <!-- Side navigation links -->
+                    <li>
+                        <ul class="collapsible collapsible-accordion">
+                            <li><a class="collapsible-header waves-effect arrow-r">Rutas propias<i class="fa fa-angle-down rotate-icon"></i></a>
+                                <div class="collapsible-body">
+                                    <ul class="list-unstyled">
+                                        <li><a href="RutasPrivadas" class="waves-effect">Listado rutas</a>
+                                        </li>
+                                        <li><a href="RutaAlta" class="waves-effect">Agregar ruta</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="RutasRecorridas" class="collapsible-header waves-effect arrow-r">Rutas recorridas</a></li>
+                            <li><a href="RutasPublicas" class="collapsible-header waves-effect arrow-r">Descubrir rutas</a></li>
+                        </ul>
+                    </li>
+                    <!--/. Side navigation links -->
+                </ul>
+                <div class="sidenav-bg mask-strong"></div>
+            </div>
+            <!--/. Sidebar navigation -->
+            <!-- Navbar -->
+            <nav class="navbar fixed-top navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav">
+                <!-- SideNav slide-out button -->
+                <div class="float-left">
+                    <a href="#" data-activates="slide-out" class="button-collapse"><i class="fa fa-bars"></i></a>
+                </div>
+                <ul class="nav navbar-nav nav-flex-icons ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user"></i> <span class="clearfix d-none d-sm-inline-block">Mi Perfil</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="usuario.html">Ver Perfil</a>
+                            <a class="dropdown-item" href="usuarioAlta.html">Editar Perfil</a>
+                            <a class="dropdown-item" href="Logout">Cerrar Sesion</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.Navbar -->
+        </header>
+        <!--/.Double navigation-->
+        <!--Main layout-->
+        <main>
+            <div class="card card-cascade narrower p-2">
+                <div class="px-6">
+                    <div class="table-wrapper">
+                        <!--Table-->
+                        <table class="table">
+                            <!--Table head-->
+                            <thead class="blue-grey lighten-4">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nombre</th>
+                                    <th>Actividad</th>
+                                    <th>Distancia</th>
+                                    <th>Formato</th>
+                                    <th>Dificultad</th>
+                                    <th>Tiempo estimado</th>
+                                    <th>Privacidad</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <!--Table head-->
+                            <!--Table body-->
+                            <tbody>
+                                <tr>
+                                    <td scope="row">1</td>
+                                    <td>Cruce los Andes</td>
+                                    <td>Carrera por montaña</td>
+                                    <td>100 km</td>
+                                    <td>Solo ida</td>
+                                    <td>Solo Expertos</td>
+                                    <td>48 hs</td>
+                                    <td>Privada</td>
+                                    <td><button  href="login.html" type="button" class="btn btn-sm btn-default btn-rounded">Detalle</button></td>
+                                    <td><button type="button" class="btn btn-sm btn-dark-green btn-rounded">Modificar</button></td>
+                                    <td><button type="button" class="btn btn-sm btn-danger btn-rounded">Eliminar</button></td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-secondary btn-rounded"data-toggle="modal" data-target="#centralModalLg">Agregar nota</button>
+                                        <div class="modal fade" id="centralModalLg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h3 class="modal-title" id="exampleModalLabel">Agregar nota</h3>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label class="form-check-label" for="dificultad">Categoria</label>
+                                                                <select class="custom-select d-block w-100" id="dificultad" required>
+                                                                    <option value="">Seleccione...</option>
+                                                                    <option>Denuncia</option>
+                                                                    <option>Alerta</option>
+                                                                    <option>Opinión</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <label class="form-check-label" for="descripcion">Descripcion</label>
+                                                                <div class="input-group">
+                                                                    <textarea rows="3" class="form-control" id="descripcion" placeholder="Descripcion de la nota a agregar..." required></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                                        <button type="button" class="btn btn-secondary">Guardar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">2</td>
+                                    <td>El Chalten</td>
+                                    <td>Senderismo</td>
+                                    <td>10,5 km</td>
+                                    <td>Solo ida</td>
+                                    <td>Moderado</td>
+                                    <td>2 hs</td>
+                                    <td>Publica</td>
+                                    <td><button type="button" class="btn btn-sm btn-default btn-rounded">Detalle</button></td>
+                                    <td><button type="button" class="btn btn-sm btn-dark-green btn-rounded">Modificar</button></td>
+                                    <td><button type="button" class="btn btn-sm btn-danger btn-rounded">Eliminar</button></td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-secondary btn-rounded"data-toggle="modal" data-target="#centralModalLg">Agregar nota</button>
+                                        <div class="modal fade" id="centralModalLg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h3 class="modal-title" id="exampleModalLabel">Agregar nota</h3>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label class="form-check-label" for="dificultad">Categoria</label>
+                                                                <select class="custom-select d-block w-100" id="dificultad" required>
+                                                                    <option value="">Seleccione...</option>
+                                                                    <option>Denuncia</option>
+                                                                    <option>Alerta</option>
+                                                                    <option>Opinión</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <label class="form-check-label" for="descripcion">Descripcion</label>
+                                                                <div class="input-group">
+                                                                    <textarea rows="3" class="form-control" id="descripcion" placeholder="Descripcion de la nota a agregar..." required></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                                        <button type="button" class="btn btn-secondary">Guardar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">3</td>
+                                    <td>Iruya</td>
+                                    <td>Senderismo</td>
+                                    <td>12 km</td>
+                                    <td>Solo ida</td>
+                                    <td>Moderado</td>
+                                    <td>2 hs</td>
+                                    <td>Privada</td>
+                                    <td><button type="button" class="btn btn-sm btn-default btn-rounded" onclick="location.href='RutaDetalle';">Detalle</button></td>
+                                    <td><button type="button" class="btn btn-sm btn-dark-green btn-rounded">Modificar</button></td>
+                                    <td><button type="button" class="btn btn-sm btn-danger btn-rounded">Eliminar</button></td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-secondary btn-rounded"data-toggle="modal" data-target="#centralModalLg">Agregar nota</button>
+                                        <div class="modal fade" id="centralModalLg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h3 class="modal-title" id="exampleModalLabel">Agregar nota</h3>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label class="form-check-label" for="dificultad">Categoria</label>
+                                                                <select class="custom-select d-block w-100" id="dificultad" required>
+                                                                    <option value="">Seleccione...</option>
+                                                                    <option>Denuncia</option>
+                                                                    <option>Alerta</option>
+                                                                    <option>Opinión</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <label class="form-check-label" for="descripcion">Descripcion</label>
+                                                                <div class="input-group">
+                                                                    <textarea rows="3" class="form-control" id="descripcion" placeholder="Descripcion de la nota a agregar..." required></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                                        <button type="button" class="btn btn-secondary">Guardar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <!--Table body-->
+                        </table>
+                        <!--Table-->
+                    </div>
+                    <hr class="my-0">
+                    <br>
+                    <!--Bottom Table UI-->
+                    <div class="float-right d-flex justify-content-between">
+                        <!--Pagination -->
+                        <nav class="my-4">
+                            <ul class="pagination pagination-circle pg-blue mb-0">
+                                <!--First-->
+                                <li class="page-item disabled"><a class="page-link">First</a></li>
+                                <!--Arrow left-->
+                                <li class="page-item disabled">
+                                    <a class="page-link" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                </li>
+                                <!--Numbers-->
+                                <li class="page-item active"><a class="page-link">1</a></li>
+                                <li class="page-item"><a class="page-link">2</a></li>
+                                <li class="page-item"><a class="page-link">3</a></li>
+                                <li class="page-item"><a class="page-link">4</a></li>
+                                <li class="page-item"><a class="page-link">5</a></li>
+                                <!--Arrow right-->
+                                <li class="page-item">
+                                    <a class="page-link" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                                </li>
+                                <!--First-->
+                                <li class="page-item"><a class="page-link">Last</a></li>
+                            </ul>
+                        </nav>
+                        <!--/Pagination -->
+                    </div>
+                    <!--Bottom Table UI-->
+                </div>
+            </div>
+        </main>
+        <!--/Main layout-->
+
+        <!-- SCRIPTS -->
+        <!-- JQuery -->
+        <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <!-- Tooltips -->
+        <script type="text/javascript" src="js/popper.min.js"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <!-- MDB core JavaScript -->
+        <script type="text/javascript" src="js/mdb.min.js"></script>
+        <script>
+        // SideNav Initialization
+        $(".button-collapse").sideNav();
+        new WOW().init();
+        </script>
+    </body>
+</html>

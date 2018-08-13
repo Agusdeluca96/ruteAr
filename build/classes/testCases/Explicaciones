@@ -1,0 +1,16 @@
+Los casos de prueba fueron implementados a traves de un metodo "main", el cual se encuentra en el paquete testCases
+dentro del src. Para probar el ambiente lo unico necesario es crear una base de datos vacia con el nombre "rutear" y
+luego ir al metodo Main previamente mencionado y ejecutarlo mediante Run As Java Application. Funcionalidad relacionada
+a las operaciones de Crear, Recuperar, Actualizar y Remover se encuentran ejemplificadas dentro del mismo, y su impacto
+puede verse observando el estado de la base de datos luego de correr el main.
+
+CREDENCIALES DE LA BD:
+Usuario: root
+Clave: 
+Nombre: rutear
+Servidor: localhost:3306
+
+En el ejemplo provisto se crea en primer lugar un usuario administrador, se dan de alta varias actividades, y luego se
+recupera y modifica una de ellas y se elimina otra. Se crea tambien un usuario basico y una ruta que posee a dicho 
+usuario como creador, se recupera de la base una ruta y se imprime en consola el valor de un enumerativo y por ultimo 
+se recuperan todas las actividades y se lista en consola la descripcion de cada una de estas.

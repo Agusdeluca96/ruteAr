@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags always come first -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Rute.Ar</title>
+        <link href="css/style.css" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- Material Design Bootstrap -->
+        <link href="css/mdb.min.css" rel="stylesheet">
+    </head>
+    <body class="fixed-sn cyan-skin">
+        <!--Double navigation-->
+        <header>
+            <!-- Sidebar navigation -->
+            <div id="slide-out" class="side-nav sn-bg-4 fixed">
+                <ul class="custom-scrollbar">
+                    <!-- Logo -->
+                    <li>
+                        <div class="logo-wrapper waves-light">
+                            <a href=""><h1 class="logo">Rute.Ar</h1></a>
+                        </div>
+                    </li>
+                    <!--/. Logo -->
+                    <!-- Side navigation links -->
+                    <li>
+                        <ul class="collapsible collapsible-accordion">
+                            <li><a class="collapsible-header waves-effect arrow-r">Rutas propias<i class="fa fa-angle-down rotate-icon"></i></a>
+                                <div class="collapsible-body">
+                                    <ul class="list-unstyled">
+                                        <li><a href="RutasPrivadas" class="waves-effect">Listado rutas</a>
+                                        </li>
+                                        <li><a href="RutaAlta" class="waves-effect">Agregar ruta</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="RutasRecorridas" class="collapsible-header waves-effect arrow-r">Rutas recorridas</a></li>
+                            <li><a href="RutasPublicas" class="collapsible-header waves-effect arrow-r">Descubrir rutas</a></li>
+                        </ul>
+                    </li>
+                    <!--/. Side navigation links -->
+                </ul>
+                <div class="sidenav-bg mask-strong"></div>
+            </div>
+            <!--/. Sidebar navigation -->
+            <!-- Navbar -->
+            <nav class="navbar fixed-top navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav">
+                <!-- SideNav slide-out button -->
+                <div class="float-left">
+                    <a href="#" data-activates="slide-out" class="button-collapse"><i class="fa fa-bars"></i></a>
+                </div>
+                <ul class="nav navbar-nav nav-flex-icons ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user"></i> <span class="clearfix d-none d-sm-inline-block">Mi Perfil</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="usuario.html">Ver Perfil</a>
+                            <a class="dropdown-item" href="usuarioAlta.html">Editar Perfil</a>
+                            <a class="dropdown-item" href="Logout">Cerrar Sesion</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.Navbar -->
+        </header>
+        <!--/.Double navigation-->
+        <!--Main layout-->
+        <main>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 order-md-2 mb-4">
+                    </div>
+                    <div class="col-md-9 order-md-1">
+                        <h2 class="mb-3">Detalle de la Ruta</h2>
+                        <form class="needs-validation" novalidate>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="routeName">Nombre</label>
+                                    <input type="text" class="form-control" id="routeName" value="Iruya" disabled>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="descripcion">Descripcion</label>
+                                <div class="input-group">
+                                    <textarea rows="4" class="form-control" id="descripcion" disabled>Nos alojamos en lo de Jasinta. Es una pieza limpia, con camas que tienen sabanas y cobijas limpias, nos alimentaron muy bien y son muy amables. La casa esta al lado de una construccion de techo verde. No lo aconsejo para personas con escasa actividad fisica ya que, partes del recorrido son muy exigentes. No tiene desperdicio las vistas desde San Juan a Iruya.</textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="routePrivacy">Privacidad</label>
+                                    <input type="text" class="form-control" id="routePrivacy" value="Privada" disabled>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="routeFormat">Formato</label>
+                                    <input type="text" class="form-control" id="routeFormat" value="Solo ida" disabled>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="dificultad">Dificultad</label>
+                                    <input type="text" class="form-control" id="dificultad" value="Moderado" disabled>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="recorrido">Recorrido</label>
+                                <img class="map" src="images/mapaIruya.png" alt="Mapa Iruya">
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-3 mb-3">
+                                    <label for="actividad">Actividad</label>
+                                    <input type="text" class="form-control" id="actividad" value="Senderismo" disabled>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="distancia">Distancia</label>
+                                    <input type="text" class="form-control" name="distancia" id="distancia" value="12 km" disabled>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label >Fecha de Realización</label>
+                                    <input type="date" name="fecha" max="3000-12-31" min="1000-01-01" value="2018-03-03" class="form-control" disabled>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="tiempo">Tiempo estimado en hs</label>
+                                    <input type="text" class="form-control" name="tiempo" min="0" value="2 hs" disabled>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="recorrido">Fotos</label>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div id="mdb-lightbox-ui"></div>
+                                            <div class="mdb-lightbox">
+                                                <figure class="col-md-4">
+                                                    <a href="images/iruya1.jpg" data-size="1600x1067">
+                                                        <img src="images/iruya1.jpg" alt="placeholder" class="img-fluid">
+                                                    </a>
+                                                </figure>
+                                                <figure class="col-md-4">
+                                                    <a href="images/iruya2.jpg" data-size="1600x1067">
+                                                        <img src="images/iruya2.jpg" alt="placeholder" class="img-fluid" />
+                                                    </a>
+                                                </figure>
+                                                <figure class="col-md-4">
+                                                    <a href="images/iruya3.jpg" data-size="1600x1067">
+                                                        <img src="images/iruya3.jpg" alt="placeholder" class="img-fluid" />
+                                                    </a>
+                                                </figure>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+<!--                         <hr class="mb-4">
+                        <div class="text-center">
+                            <button type="button" class="btn btn-dark-green">Modificar</button>
+                            <button type="button" class="btn btn-danger">Eliminar</button>
+                        </div> -->
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!--/Main layout-->
+        <!-- SCRIPTS -->
+        <!-- JQuery -->
+        <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <!-- Tooltips -->
+        <script type="text/javascript" src="js/popper.min.js"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <!-- MDB core JavaScript -->
+        <script type="text/javascript" src="js/mdb.min.js"></script>
+        <script>
+        // SideNav Initialization
+        $(".button-collapse").sideNav();
+        new WOW().init();
+        </script>
+    </body>
+</html>

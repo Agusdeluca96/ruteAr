@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags always come first -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Rute.Ar</title>
+        <link href="css/style.css" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- Material Design Bootstrap -->
+        <link href="css/mdb.min.css" rel="stylesheet">
+    </head>
+    <body class="fixed-sn cyan-skin">
+        <!--Double navigation-->
+        <header>
+            <!-- Sidebar navigation -->
+            <div id="slide-out" class="side-nav sn-bg-4 fixed">
+                <ul class="custom-scrollbar">
+                    <!-- Logo -->
+                    <li>
+                        <div class="logo-wrapper waves-light">
+                            <a href=""><h1 class="logo">Rute.Ar</h1></a>
+                        </div>
+                    </li>
+                    <!--/. Logo -->
+                    <!-- Side navigation links -->
+                    <li>
+                        <ul class="collapsible collapsible-accordion">
+                            <li><a href="Usuarios" class="collapsible-header waves-effect arrow-r">Listado usuarios</a></li>
+                            <li><a class="collapsible-header waves-effect arrow-r">Actividades<i class="fa fa-angle-down rotate-icon"></i></a>
+                                <div class="collapsible-body">
+                                    <ul class="list-unstyled">
+                                        <li><a href="Actividades" class="waves-effect">Listado actividades</a>
+                                        </li>
+                                        <li><a href="ActividadAlta" class="waves-effect">Agregar actividad</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <!--/. Side navigation links -->
+                </ul>
+                <div class="sidenav-bg mask-strong"></div>
+            </div>
+            <!--/. Sidebar navigation -->
+            <!-- Navbar -->
+            <nav class="navbar fixed-top navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav">
+                <!-- SideNav slide-out button -->
+                <div class="float-left">
+                    <a href="#" data-activates="slide-out" class="button-collapse"><i class="fa fa-bars"></i></a>
+                </div>
+                <ul class="nav navbar-nav nav-flex-icons ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user"></i> <span class="clearfix d-none d-sm-inline-block">Mi Perfil</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="usuario.html">Ver Perfil</a>
+                            <a class="dropdown-item" href="usuarioAlta.html">Editar Perfil</a>
+                            <a class="dropdown-item" href="Logout">Cerrar Sesion</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.Navbar -->
+        </header>
+        <!--/.Double navigation-->
+        <!--Main layout-->
+        <main>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 order-md-2 mb-4">
+                    </div>
+                    <div class="col-md-9 order-md-1">
+                        <h2 class="mb-3">Nueva Actividad</h2>
+                        <form class="needs-validation" novalidate>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" class="form-control" id="nombre" placeholder="Nombre de la actividad a agregar..." required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="descripcion">Descripcion</label>
+                                <div class="input-group">
+                                    <textarea rows="3" class="form-control" id="descripcion" placeholder="Descripcion de la actividad a agregar..." required></textarea>
+                                </div>
+                            </div>
+                            <hr class="mb-4">
+                            <button class="btn btn-default btn-lg btn-block" type="submit">Confirmar</button>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+        <!--/Main layout-->
+
+        <!-- SCRIPTS -->
+        <!-- JQuery -->
+        <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <!-- Tooltips -->
+        <script type="text/javascript" src="js/popper.min.js"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <!-- MDB core JavaScript -->
+        <script type="text/javascript" src="js/mdb.min.js"></script>
+        <script>
+        // SideNav Initialization
+        $(".button-collapse").sideNav();
+        new WOW().init();
+        </script>
+    </body>
+</html>
