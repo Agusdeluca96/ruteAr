@@ -49,7 +49,6 @@ public class UsuarioResource {
 			usuarioDAO.create(usuario);
 			return Response.status(Response.Status.CREATED).build();
 		} else {
-			System.out.println("Ya existe ese usuario");
 			return Response.status(Response.Status.CONFLICT).build();
 		}
 	}
@@ -58,7 +57,7 @@ public class UsuarioResource {
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response modify(UsuarioDTO usuario, @PathParam("id") Long id) {
+	public Response update(UsuarioDTO usuario, @PathParam("id") Long id) {
 		if (usuarioDAO.isCreated(usuario)) {
 			usuarioDAO.update(usuario, id);
 			return Response.ok().entity(usuario).build();
@@ -79,7 +78,7 @@ public class UsuarioResource {
 			return Response.status(Response.Status.NOT_FOUND).entity("No existe un usuario con ese Id").build();
 		}
 	}
-	
+
 	@PUT
 	@Path("{id}/habilitar")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -93,7 +92,7 @@ public class UsuarioResource {
 			return Response.status(Response.Status.NOT_FOUND).entity("[]").build();
 		}
 	}
-	
+
 	@PUT
 	@Path("{id}/deshabilitar")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -105,6 +104,29 @@ public class UsuarioResource {
 			return Response.ok().entity(usuarioRta).build();
 		} else {
 			return Response.status(Response.Status.NOT_FOUND).entity("[]").build();
+		}
+	}
+
+	@POST
+	@Path("/login")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response login(UsuarioDTO usuarioValidar) {
+		if (usuarioDAO.isCreated(usuarioValidar)) {
+			UsuarioDTO usuario = usuarioDAO.findByUsuario(usuarioValidar.getUsuario());
+			if (usuario.getContrasena().equals(usuarioValidar.getContrasena()) && usuario.getHabilitado()) {
+				return Response.status(Response.Status.CREATED).entity(usuario).build();
+			} else {
+				if (!usuario.getHabilitado()) {
+					return Response.status(Response.Status.UNAUTHORIZED)
+							.entity("Usuario no habilitado para ingresar al sistema").build();
+				} else {
+					return Response.status(Response.Status.FORBIDDEN).entity("Contrasena incorrecta").build();
+				}
+			}
+		} else {
+			return Response.status(Response.Status.NOT_FOUND)
+					.entity("El usuario ingresado no se encuentra registrado en el sistema").build();
 		}
 	}
 }

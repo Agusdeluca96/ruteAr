@@ -36,7 +36,7 @@ public class Ruta {
 	@JoinColumn(name = "usuario_id")
 	private Usuario creador;
 	@OneToMany
-	@JoinColumn(name = "calificacion_id")
+	@JoinColumn(name = "ruta_id")
 	private List<Calificacion> calificaciones;
 	@OneToMany
 	@JoinColumn(name = "nota_id")

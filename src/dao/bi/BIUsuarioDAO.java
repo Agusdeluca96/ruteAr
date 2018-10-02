@@ -20,4 +20,6 @@ public interface BIUsuarioDAO extends BIGenericDAO<Usuario> {
 	public abstract UsuarioDTO habilitar(Long id);
 
 	public abstract UsuarioDTO deshabilitar(Long id);
+	
+	public abstract UsuarioDTO findByUsuario(String usuario);
 }

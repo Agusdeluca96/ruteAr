@@ -56,7 +56,7 @@ public class ActividadResource {
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response modify(ActividadDTO actividadDTO, @PathParam("id") Long id) {
+	public Response update(ActividadDTO actividadDTO, @PathParam("id") Long id) {
 		Actividad actividad = (Actividad) actividadDAO.find(id);
 		if (actividad != null) {
 			actividadDAO.update(actividadDTO, id);

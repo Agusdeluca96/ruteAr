@@ -36,11 +36,11 @@ public class HibernateUsuarioDAO extends HibernateGenericDAO<Usuario> implements
 	}
 
 	public void create(UsuarioDTO usuarioDTO) {
-		Usuario usuario = FactoryDTO.getFactoryDTO().convertToUsuario(usuarioDTO,
-				(Rol) FactoryDAO.getFactoryDAO().getRolDAO().find((long) 1));
+		Rol rol = (Rol) FactoryDAO.getFactoryDAO().getRolDAO().getByDescrip(usuarioDTO.getRol().getDescripcion());
+		Usuario usuario = FactoryDTO.getFactoryDTO().convertToUsuario(usuarioDTO, rol);
 		super.create(usuario);
 	}
-	
+
 	public void update(UsuarioDTO usuarioDTO, Long id) {
 		Usuario usuario = FactoryDTO.getFactoryDTO().convertToUsuario(usuarioDTO,
 				(Rol) FactoryDAO.getFactoryDAO().getRolDAO().find(usuarioDTO.getRol().getId()));
@@ -58,5 +58,17 @@ public class HibernateUsuarioDAO extends HibernateGenericDAO<Usuario> implements
 		Usuario usuario = (Usuario) super.find(id);
 		usuario.setHabilitado(false);
 		return FactoryDTO.getFactoryDTO().convertToUsuarioDTO(usuario, false);
+	}
+
+	@Override
+	public UsuarioDTO findByUsuario(String usuario) {
+		Query q = this.getEntityManager()
+				.createQuery("SELECT u FROM Usuario u WHERE u.usuario = :usuario");
+		q.setParameter("usuario", usuario);
+		if (!q.getResultList().isEmpty()) {
+			return FactoryDTO.getFactoryDTO().convertToUsuarioDTO((Usuario) q.getSingleResult(), false);			
+		} else {
+			return null;
+		}
 	}
 }

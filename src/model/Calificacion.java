@@ -22,6 +22,12 @@ public class Calificacion {
 		super();
 	}
 
+	public Calificacion(Integer valor, Usuario usuario) {
+		super();
+		this.valor = valor;
+		this.usuario = usuario;
+	}
+
 	public Long getId() {
 		return id;
 	}

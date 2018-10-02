@@ -41,9 +41,9 @@ public class FactoryDTO {
 	// Convertir de DTO en Model
 
 	public Usuario convertToUsuario(UsuarioDTO usuarioDTO, Rol rol) {
-		Usuario usuario = new Usuario(usuarioDTO.getUsuario(), usuarioDTO.getContrasena(),
-				usuarioDTO.getApellido(), usuarioDTO.getNombre(), usuarioDTO.getDomicilio(),
-				usuarioDTO.getFechaNacimiento(), Sexo.valueOf(usuarioDTO.getSexo()), usuarioDTO.getEmail(), rol);
+		Usuario usuario = new Usuario(usuarioDTO.getUsuario(), usuarioDTO.getContrasena(), usuarioDTO.getApellido(),
+				usuarioDTO.getNombre(), usuarioDTO.getDomicilio(), usuarioDTO.getFechaNacimiento(),
+				Sexo.valueOf(usuarioDTO.getSexo()), usuarioDTO.getEmail(), rol);
 		return usuario;
 	}
 
@@ -58,7 +58,8 @@ public class FactoryDTO {
 	// Convertir de Model en DTO
 
 	public ActividadDTO convertToActividadDTO(Actividad actividad) {
-		ActividadDTO actividadDTO = new ActividadDTO(actividad.getId(), actividad.getDescripcion());
+		ActividadDTO actividadDTO = new ActividadDTO(actividad.getId(), actividad.getNombre(),
+				actividad.getDescripcion());
 		return actividadDTO;
 	}
 
@@ -73,8 +74,59 @@ public class FactoryDTO {
 	// Convertir de DTO en Model
 
 	public Actividad convertToActividad(ActividadDTO actividadDTO) {
-		Actividad actividad = new Actividad(actividadDTO.getDescripcion());
+		Actividad actividad = new Actividad(actividadDTO.getNombre(), actividadDTO.getDescripcion());
 		return actividad;
+	}
+
+	// Metodos para entidad Rol
+	// Convertir de Model en DTO
+
+	public RolDTO convertToRolDTO(Rol rol) {
+		RolDTO rolDTO = new RolDTO(rol.getId(), rol.getDescripcion());
+		return rolDTO;
+	}
+
+	public List<RolDTO> convertToRolArrayListDTO(List<Rol> roles) {
+		List<RolDTO> rolesDTO = new ArrayList<RolDTO>();
+		for (Rol rol : roles) {
+			rolesDTO.add(this.convertToRolDTO(rol));
+		}
+		return rolesDTO;
+	}
+
+	public Rol convertToRol(RolDTO rolDTO) {
+		if (rolDTO.getDescripcion() == "Usuario basico del sistema") {
+			Basico rol = new Basico(rolDTO.getDescripcion());
+			return rol;
+		} else {
+			Administrador rol = new Administrador(rolDTO.getDescripcion());
+			return rol;
+		}
+	}
+
+	// Metodos para entidad Calificacion
+	// Convertir de Model en DTO
+
+	public CalificacionDTO convertToCalificacionDTO(Calificacion calificacion) {
+		CalificacionDTO calificacionDTO = new CalificacionDTO(calificacion.getId(), calificacion.getValor(),
+				this.convertToUsuarioDTO(calificacion.getUsuario(), false));
+		return calificacionDTO;
+	}
+
+	public List<CalificacionDTO> convertToCalificacionArrayListDTO(List<Calificacion> calificaciones) {
+		List<CalificacionDTO> calificacionesDTO = new ArrayList<CalificacionDTO>();
+		for (Calificacion calificacion : calificaciones) {
+			calificacionesDTO.add(this.convertToCalificacionDTO(calificacion));
+		}
+		return calificacionesDTO;
+	}
+
+	// Convertir de DTO en Model
+
+	public Calificacion convertToCalificacion(CalificacionDTO calificacionDTO) {
+		Calificacion calificacion = new Calificacion(calificacionDTO.getValor(), this.convertToUsuario(
+				(calificacionDTO.getUsuario()), this.convertToRol(calificacionDTO.getUsuario().getRol())));
+		return calificacion;
 	}
 
 }
