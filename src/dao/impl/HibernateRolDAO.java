@@ -29,13 +29,13 @@ public class HibernateRolDAO extends HibernateGenericDAO<Rol> implements BIRolDA
 	}
 
 	public boolean isCreated(RolDTO rol) {
-		Query q = this.getEntityManager().createQuery("SELECT r FROM Rol r WHERE r.nombre = :nombre");
+		Query q = this.getEntityManager().createQuery("SELECT r FROM rol r WHERE r.nombre = :nombre");
 		q.setParameter("nombre", rol.getDescripcion());
 		return (!q.getResultList().isEmpty());
 	}
 
 	public Rol getByDescrip(String descrip) {
-		Query q = this.getEntityManager().createQuery("SELECT r FROM Rol r WHERE r.descripcion = :descrip");
+		Query q = this.getEntityManager().createQuery("SELECT r FROM rol r WHERE r.descripcion = :descrip");
 		q.setParameter("descrip", descrip);
 		return (Rol) q.getSingleResult();
 	}

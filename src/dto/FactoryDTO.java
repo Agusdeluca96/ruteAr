@@ -21,12 +21,17 @@ public class FactoryDTO {
 
 	public UsuarioDTO convertToUsuarioDTO(Usuario usuario, boolean completo) {
 		RolDTO rolDTO = new RolDTO(usuario.getRol().getId(), usuario.getRol().getDescripcion());
+		List<RutaDTO> rutasRecorridasDTO = this.convertToRutaArrayListDTO(usuario.getRutasRecorridas(), false);
+		List<RutaDTO> rutasAgregadasDTO = this.convertToRutaArrayListDTO(usuario.getRutasAgregadas(), false);
 		UsuarioDTO usuarioDTO = new UsuarioDTO(usuario.getId(), usuario.getUsuario(), usuario.getContrasena(),
 				usuario.getApellido(), usuario.getNombre(), usuario.getDomicilio(), usuario.getFechaNacimiento(),
-				usuario.getSexo().toString(), usuario.getEmail(), rolDTO, usuario.isHabilitado());
-		if (completo) {
-			usuarioDTO.setRutasRecorridas(this.convertToRutaArrayListDTO(usuario.getRutasRecorridas(), completo));
-		}
+				usuario.getSexo().toString(), usuario.getEmail(), rolDTO, rutasRecorridasDTO, rutasAgregadasDTO,
+				usuario.isHabilitado());
+		/*
+		 * if (completo) {
+		 * usuarioDTO.setRutasRecorridas(this.convertToRutaArrayListDTO(usuario.
+		 * getRutasRecorridas(), completo)); }
+		 */
 		return usuarioDTO;
 	}
 
@@ -50,8 +55,23 @@ public class FactoryDTO {
 	// Metodos para entidad Ruta
 	// Convertir de Model en DTO
 
-	private List<RutaDTO> convertToRutaArrayListDTO(List<Ruta> rutasRecorridas, boolean completo) {
-		return new ArrayList<RutaDTO>();
+	public List<RutaDTO> convertToRutaArrayListDTO(List<Ruta> rutasRecorridas, boolean completo) {
+		List<RutaDTO> rutasDTO = new ArrayList<RutaDTO>();
+		for (Ruta ruta : rutasRecorridas) {
+			rutasDTO.add(this.convertToRutaDTO(ruta, false));
+		}
+		return rutasDTO;
+	}
+
+	public RutaDTO convertToRutaDTO(Ruta ruta, boolean completo) {
+		RutaDTO rutaDTO = new RutaDTO(ruta.getNombre(), ruta.getDescripcion(), ruta.getPrivacidad(),
+				ruta.getRecorrido(), ruta.getFormato(), ruta.getDistancia(), ruta.getDificultad(), ruta.getTiempo(),
+				ruta.getFecha(), ruta.getFotos(), null, ruta.getActividad());
+		if (completo) {
+			// rutaDTO.setCalificaciones(this.convertToCalificacionesArrayListDTO(ruta.getCalificaciones(),
+			// completo));
+		}
+		return rutaDTO;
 	}
 
 	// Metodos para entidad Actividad
@@ -95,14 +115,14 @@ public class FactoryDTO {
 	}
 
 	public Rol convertToRol(RolDTO rolDTO) {
-		if (rolDTO.getDescripcion() == "Usuario basico del sistema") {
-			Basico rol = new Basico(rolDTO.getDescripcion());
-			return rol;
-		} else {
-			Administrador rol = new Administrador(rolDTO.getDescripcion());
-			return rol;
-		}
-	}
+  if (rolDTO.getDescripcion() == "Usuario basico del sistema") {
+   Basico rol = new Basico(rolDTO.getDescripcion());
+   return rol;
+  } else {
+   Administrador rol = new Administrador(rolDTO.getDescripcion());
+   return rol;
+  }
+ }
 
 	// Metodos para entidad Calificacion
 	// Convertir de Model en DTO

@@ -4,17 +4,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity
+@Entity(name = "usuario")
 public class Usuario {
 	@Id
 	@GeneratedValue
@@ -31,10 +34,13 @@ public class Usuario {
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "rol_id")
 	private Rol rol;
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "usuario_ruta", joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "ruta_id", referencedColumnName = "ruta_id"))
+	private List<Ruta> rutasRecorridas;
 	@OneToMany
 	@JoinColumn(name = "ruta_id")
 	@JsonIgnore
-	private List<Ruta> rutasRecorridas;
+	private List<Ruta> rutasAgregadas;
 	private Boolean habilitado;
 
 	public Usuario() {
@@ -53,6 +59,7 @@ public class Usuario {
 		this.email = email;
 		this.rol = rol;
 		this.rutasRecorridas = new ArrayList<Ruta>();
+		this.rutasAgregadas = new ArrayList<Ruta>();
 		this.habilitado = true;
 	}
 
@@ -154,5 +161,14 @@ public class Usuario {
 
 	public void setHabilitado(boolean habilitado) {
 		this.habilitado = habilitado;
+	}
+
+	public void addRutaAgregada(Ruta ruta) {
+		this.rutasAgregadas.add(ruta);
+
+	}
+
+	public List<Ruta> getRutasAgregadas() {
+		return this.rutasAgregadas;
 	}
 }

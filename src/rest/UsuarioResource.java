@@ -7,6 +7,7 @@ import javax.ws.rs.core.*;
 
 import dao.FactoryDAO;
 import dao.bi.*;
+import dto.RutaDTO;
 import dto.UsuarioDTO;
 import model.Usuario;
 
@@ -127,6 +128,47 @@ public class UsuarioResource {
 		} else {
 			return Response.status(Response.Status.NOT_FOUND)
 					.entity("El usuario ingresado no se encuentra registrado en el sistema").build();
+		}
+	}
+
+	@GET
+ @Path("{id}/rutasAgregadas")
+ @Produces(MediaType.APPLICATION_JSON)
+ public Response findAddedRoutes(@PathParam("id") Long id) {
+  UsuarioDTO usuario = usuarioDAO.findComplete(id);
+  if (usuarioDAO.isCreated(usuario)) {
+   List<RutaDTO> rutasAgregadas = usuario.getRutasAgregadas();
+   return Response.ok().entity(rutasAgregadas).build();
+  } else {
+   mensaje = "No se encontró el usuario";
+   return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
+  }
+ }
+
+	@GET
+	@Path("{id}/rutasRecorridas")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findKnownRoutes(@PathParam("id") Long id) {
+		UsuarioDTO usuario = usuarioDAO.findComplete(id);
+		if (usuarioDAO.isCreated(usuario)) {
+			List<RutaDTO> rutasRecorridas = usuario.getRutasRecorridas();
+			return Response.ok().entity(rutasRecorridas).build();
+		} else {
+			mensaje = "No se encontró el usuario";
+			return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
+		}
+	}
+
+	@GET
+	@Path("{id}/completo")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findComplete(@PathParam("id") Long id) {
+		UsuarioDTO usuario = usuarioDAO.findComplete(id);
+		if (usuarioDAO.isCreated(usuario)) {
+			return Response.ok().entity(usuario).build();
+		} else {
+			mensaje = "No se encontró el usuario";
+			return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
 		}
 	}
 }

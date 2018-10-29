@@ -28,9 +28,9 @@ public class RutaDTO {
 		super();
 	}
 
-	public RutaDTO(String nombre, String descripcion, Enum<Privacidad> privacidad, String recorrido, Enum<Formato> formato,
-			Double distancia, Enum<Dificultad> dificultad, Double tiempo, Date fecha, List<Foto> fotos, Usuario creador,
-			Actividad actividad) {
+	public RutaDTO(String nombre, String descripcion, Enum<Privacidad> privacidad, String recorrido,
+			Enum<Formato> formato, Double distancia, Enum<Dificultad> dificultad, Double tiempo, Date fecha,
+			List<Foto> fotos, Usuario creador, Actividad actividad) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.privacidad = privacidad;
@@ -161,7 +161,8 @@ public class RutaDTO {
 		while (it.hasNext()) {
 			total += it.next().getValor();
 		}
-		return (float) (total / this.calificaciones.size());
+		return (float) 1;
+		// return (float) (total / this.calificaciones.size());
 	}
 
 	public void addCalificacion(Calificacion calificacion) {
@@ -189,4 +190,3 @@ public class RutaDTO {
 	}
 
 }
-

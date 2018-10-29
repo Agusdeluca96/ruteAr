@@ -60,6 +60,22 @@ public class Main {
 				Privacidad.PUBLICA, "/files/r04593848.kml", Formato.SOLO_IDA, 5194.00, Dificultad.DIFICIL, 52.5,
 				new Date(), new ArrayList<Foto>(), usuarioBasico1, motociclismo);
 		FactoryDAO.getFactoryDAO().getRutaDAO().create(ruta);
+		// usuarioBasico1.addRutaAgregada(ruta);
+		usuarioBasico1.addRutaRecorrida(ruta);
+		// FactoryDAO.getFactoryDAO().getUsuarioDAO().update(usuarioBasico1);
+
+		Ruta ruta2 = new Ruta("Ruta 36", "Carretera de Argentina que se extiende desde Cordoba hasta Rosario",
+				Privacidad.PUBLICA, "/files/r04593848.kml", Formato.SOLO_IDA, 5194.00, Dificultad.DIFICIL, 52.5,
+				new Date(), new ArrayList<Foto>(), usuarioBasico1, motociclismo);
+		usuarioBasico1.addRutaAgregada(ruta2);
+		FactoryDAO.getFactoryDAO().getRutaDAO().create(ruta2);
+
+		Ruta ruta3 = new Ruta("Ruta 11",
+				"Carretera de Argentina que se extiende desde Capital Federal hasta Mar de Ajo", Privacidad.PUBLICA,
+				"/files/r04593848.kml", Formato.SOLO_IDA, 5194.00, Dificultad.DIFICIL, 52.5, new Date(),
+				new ArrayList<Foto>(), usuarioBasico1, motociclismo);
+		usuarioBasico1.addRutaRecorrida(ruta3);
+		FactoryDAO.getFactoryDAO().getRutaDAO().create(ruta3);
 
 		// Se recuperan todas las actividades del sistema y se listan en pantalla
 		List<Actividad> actividades = FactoryDAO.getFactoryDAO().getActividadDAO().listAll();
@@ -71,14 +87,18 @@ public class Main {
 		System.out.println(rutaRecuperada.getDificultad());
 
 		// Se crean 2 calificaciones
-		Calificacion calificacion1 = new Calificacion(5, usuarioBasico1);
-		FactoryDAO.getFactoryDAO().getCalificacionDAO().create(calificacion1);
-		Calificacion calificacion2 = new Calificacion(4, usuarioBasico2);
-		FactoryDAO.getFactoryDAO().getCalificacionDAO().create(calificacion2);
+		/*
+		 * Calificacion calificacion1 = new Calificacion(5, usuarioBasico1);
+		 * FactoryDAO.getFactoryDAO().getCalificacionDAO().create(calificacion1);
+		 * Calificacion calificacion2 = new Calificacion(4, usuarioBasico2);
+		 * FactoryDAO.getFactoryDAO().getCalificacionDAO().create(calificacion2);
+		 */
 
 		// Se agregan 2 calificaciones a las rutas
-		rutaRecuperada.addCalificacion(calificacion1);
-		rutaRecuperada.addCalificacion(calificacion2);
-		FactoryDAO.getFactoryDAO().getRutaDAO().update(rutaRecuperada);
+		/*
+		 * rutaRecuperada.addCalificacion(calificacion1);
+		 * rutaRecuperada.addCalificacion(calificacion2);
+		 * FactoryDAO.getFactoryDAO().getRutaDAO().update(rutaRecuperada);
+		 */
 	}
 }

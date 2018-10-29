@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 	@Type(value = Administrador.class, name = "Administrador"),
 	@Type(value = Basico.class, name = "Basico")
 	})
-@Entity
+@Entity(name = "rol")
 public abstract class Rol {
 	@javax.persistence.Id
 	@GeneratedValue

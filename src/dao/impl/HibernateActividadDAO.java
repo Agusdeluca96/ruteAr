@@ -17,13 +17,13 @@ public class HibernateActividadDAO extends HibernateGenericDAO<Actividad> implem
 	}
 
 	public Actividad getByDescrip(String descrip) {
-		Query q = this.getEntityManager().createQuery("SELECT a FROM Actividad a WHERE a.nombre = :nombre");
+		Query q = this.getEntityManager().createQuery("SELECT a FROM actividad a WHERE a.nombre = :nombre");
 		q.setParameter("nombre", descrip);
 		return (Actividad) q.getSingleResult();
 	}
 
 	public boolean isCreated(ActividadDTO actividad) {
-		Query q = this.getEntityManager().createQuery("SELECT a FROM Actividad a WHERE a.nombre = :nombre");
+		Query q = this.getEntityManager().createQuery("SELECT a FROM actividad a WHERE a.nombre = :nombre");
 		q.setParameter("nombre", actividad.getDescripcion());
 		return (!q.getResultList().isEmpty());
 	}

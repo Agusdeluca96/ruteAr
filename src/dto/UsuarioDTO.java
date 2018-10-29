@@ -16,6 +16,7 @@ public class UsuarioDTO {
 	private String email;
 	private RolDTO rol;
 	private List<RutaDTO> rutasRecorridas;
+	private List<RutaDTO> rutasAgregadas;
 	private Boolean habilitado;
 
 	public UsuarioDTO() {
@@ -23,7 +24,8 @@ public class UsuarioDTO {
 	}
 
 	public UsuarioDTO(Long id, String usuario, String contrasena, String apellido, String nombre, String domicilio,
-			Date fechaNacimiento, String sexo, String email, RolDTO rol, Boolean habilitado) {
+			Date fechaNacimiento, String sexo, String email, RolDTO rol, List<RutaDTO> rutasRecorridas,
+			List<RutaDTO> rutasAgregadas, Boolean habilitado) {
 		this.id = id;
 		this.usuario = usuario;
 		this.contrasena = contrasena;
@@ -34,7 +36,8 @@ public class UsuarioDTO {
 		this.sexo = sexo;
 		this.email = email;
 		this.rol = rol;
-		this.rutasRecorridas = null;
+		this.rutasRecorridas = rutasRecorridas;
+		this.rutasAgregadas = rutasAgregadas;
 		this.habilitado = habilitado;
 	}
 
@@ -132,6 +135,14 @@ public class UsuarioDTO {
 
 	public void setRutasRecorridas(List<RutaDTO> rutasRecorridas) {
 		this.rutasRecorridas = rutasRecorridas;
+	}
+
+	public List<RutaDTO> getRutasAgregadas() {
+		return rutasAgregadas;
+	}
+
+	public void setRutasAgregadas(List<RutaDTO> rutasAgregadas) {
+		this.rutasAgregadas = rutasAgregadas;
 	}
 
 }

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
-@Entity
+@Entity(name = "ruta")
 public class Ruta {
 	@Id
 	@GeneratedValue

@@ -17,6 +17,12 @@ public class HibernateUsuarioDAO extends HibernateGenericDAO<Usuario> implements
 		super(Usuario.class);
 	}
 
+	public Usuario getByUsername(String username) {
+		Query q = this.getEntityManager().createQuery("SELECT u FROM usuario u WHERE u.usuario = :usuario");
+		q.setParameter("usuario", username);
+		return (Usuario) q.getSingleResult();
+	}
+
 	@Override
 	public List<UsuarioDTO> listAllIncomplete() {
 		return FactoryDTO.getFactoryDTO().convertToUsuarioArrayListDTO(super.listAll(), false);
@@ -28,9 +34,13 @@ public class HibernateUsuarioDAO extends HibernateGenericDAO<Usuario> implements
 	}
 
 	@Override
+	public UsuarioDTO findComplete(Long id) {
+		return FactoryDTO.getFactoryDTO().convertToUsuarioDTO((Usuario) super.find(id), true);
+	}
+
+	@Override
 	public boolean isCreated(UsuarioDTO usuario) {
-		Query q = this.getEntityManager()
-				.createQuery("SELECT u FROM Usuario u WHERE u.usuario = :usuario");
+		Query q = this.getEntityManager().createQuery("SELECT u FROM usuario u WHERE u.usuario = :usuario");
 		q.setParameter("usuario", usuario.getUsuario());
 		return (!q.getResultList().isEmpty());
 	}
@@ -62,11 +72,10 @@ public class HibernateUsuarioDAO extends HibernateGenericDAO<Usuario> implements
 
 	@Override
 	public UsuarioDTO findByUsuario(String usuario) {
-		Query q = this.getEntityManager()
-				.createQuery("SELECT u FROM Usuario u WHERE u.usuario = :usuario");
+		Query q = this.getEntityManager().createQuery("SELECT u FROM usuario u WHERE u.usuario = :usuario");
 		q.setParameter("usuario", usuario);
 		if (!q.getResultList().isEmpty()) {
-			return FactoryDTO.getFactoryDTO().convertToUsuarioDTO((Usuario) q.getSingleResult(), false);			
+			return FactoryDTO.getFactoryDTO().convertToUsuarioDTO((Usuario) q.getSingleResult(), false);
 		} else {
 			return null;
 		}

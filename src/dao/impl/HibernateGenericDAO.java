@@ -29,6 +29,7 @@ public abstract class HibernateGenericDAO<T> implements BIGenericDAO<T> {
 		EntityTransaction tx = this.getEntityManager().getTransaction();
 		tx.begin();
 		this.getEntityManager().persist(t);
+		this.getEntityManager().flush();
 		tx.commit();
 		return null;
 	}
