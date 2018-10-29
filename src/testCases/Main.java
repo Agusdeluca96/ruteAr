@@ -86,6 +86,8 @@ public class Main {
 		Ruta rutaRecuperada = (Ruta) FactoryDAO.getFactoryDAO().getRutaDAO().find((long) 1);
 		System.out.println(rutaRecuperada.getDificultad());
 
+		// Probando git
+		
 		// Se crean 2 calificaciones
 		/*
 		 * Calificacion calificacion1 = new Calificacion(5, usuarioBasico1);
