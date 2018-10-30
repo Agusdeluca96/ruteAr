@@ -64,7 +64,7 @@ public class FactoryDTO {
 	}
 
 	public RutaDTO convertToRutaDTO(Ruta ruta, boolean completo) {
-		RutaDTO rutaDTO = new RutaDTO(ruta.getNombre(), ruta.getDescripcion(), ruta.getPrivacidad(),
+		RutaDTO rutaDTO = new RutaDTO(ruta.getId(), ruta.getNombre(), ruta.getDescripcion(), ruta.getPrivacidad(),
 				ruta.getRecorrido(), ruta.getFormato(), ruta.getDistancia(), ruta.getDificultad(), ruta.getTiempo(),
 				ruta.getFecha(), ruta.getFotos(), null, ruta.getActividad());
 		if (completo) {

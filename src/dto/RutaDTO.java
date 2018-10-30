@@ -28,9 +28,10 @@ public class RutaDTO {
 		super();
 	}
 
-	public RutaDTO(String nombre, String descripcion, Enum<Privacidad> privacidad, String recorrido,
+	public RutaDTO(Long id, String nombre, String descripcion, Enum<Privacidad> privacidad, String recorrido,
 			Enum<Formato> formato, Double distancia, Enum<Dificultad> dificultad, Double tiempo, Date fecha,
 			List<Foto> fotos, Usuario creador, Actividad actividad) {
+		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.privacidad = privacidad;
