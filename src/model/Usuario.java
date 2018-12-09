@@ -38,7 +38,7 @@ public class Usuario {
 	@JoinTable(name = "usuario_ruta", joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "ruta_id", referencedColumnName = "ruta_id"))
 	private List<Ruta> rutasRecorridas;
 	@OneToMany
-	@JoinColumn(name = "ruta_id")
+	@JoinColumn(name = "usuario_id")
 	@JsonIgnore
 	private List<Ruta> rutasAgregadas;
 	private Boolean habilitado;

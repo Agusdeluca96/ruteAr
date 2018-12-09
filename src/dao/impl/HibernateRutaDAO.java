@@ -2,11 +2,14 @@ package dao.impl;
 
 import java.util.List;
 
+import dao.FactoryDAO;
 import dao.bi.BIRutaDAO;
 import dto.FactoryDTO;
 import dto.RutaDTO;
 import model.Actividad;
+import model.Rol;
 import model.Ruta;
+import model.Usuario;
 
 public class HibernateRutaDAO extends HibernateGenericDAO<Ruta> implements BIRutaDAO {
 
@@ -37,13 +40,19 @@ public class HibernateRutaDAO extends HibernateGenericDAO<Ruta> implements BIRut
 
 	@Override
 	public void update(RutaDTO rutaDTO, Long id) {
-		// TODO Auto-generated method stub
+		Ruta ruta = FactoryDTO.getFactoryDTO().convertToRuta(rutaDTO,
+				(Usuario) FactoryDAO.getFactoryDAO().getUsuarioDAO().find(rutaDTO.getCreador().getId()), (Actividad) FactoryDAO.getFactoryDAO().getActividadDAO().find(rutaDTO.getActividad().getId()) );
+		ruta.setId(id);
+		super.update(ruta);
 
 	}
 
 	@Override
-	public void create(RutaDTO ruta) {
-		// TODO Auto-generated method stub
+	public void create(RutaDTO rutaDTO) {
+		Usuario usuario = (Usuario) FactoryDAO.getFactoryDAO().getUsuarioDAO().find(rutaDTO.getCreador().getId());
+		Actividad actividad = (Actividad) FactoryDAO.getFactoryDAO().getActividadDAO().find(rutaDTO.getActividad().getId());
+		Ruta ruta = FactoryDTO.getFactoryDTO().convertToRuta(rutaDTO, usuario, actividad);
+		super.create(ruta);
 
 	}
 

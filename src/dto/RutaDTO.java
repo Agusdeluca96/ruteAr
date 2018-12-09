@@ -11,11 +11,14 @@ public class RutaDTO {
 	private Long id;
 	private String nombre;
 	private String descripcion;
-	private Enum<Privacidad> privacidad;
+	//private Enum<Privacidad> privacidad;
+	private String privacidad;
 	private String recorrido;
-	private Enum<Formato> formato;
+	//private Enum<Formato> formato;
+	private String formato;
 	private Double distancia;
-	private Enum<Dificultad> dificultad;
+	//private Enum<Dificultad> dificultad;
+	private String dificultad;
 	private Double tiempo;
 	private Date fecha;
 	private List<Foto> fotos;
@@ -28,8 +31,8 @@ public class RutaDTO {
 		super();
 	}
 
-	public RutaDTO(Long id, String nombre, String descripcion, Enum<Privacidad> privacidad, String recorrido,
-			Enum<Formato> formato, Double distancia, Enum<Dificultad> dificultad, Double tiempo, Date fecha,
+	public RutaDTO(Long id, String nombre, String descripcion, String privacidad, String recorrido,
+			String formato, Double distancia, String dificultad, Double tiempo, Date fecha,
 			List<Foto> fotos, Usuario creador, Actividad actividad) {
 		this.id = id;
 		this.nombre = nombre;
@@ -72,11 +75,11 @@ public class RutaDTO {
 		this.descripcion = descripcion;
 	}
 
-	public Enum<Privacidad> getPrivacidad() {
+	public String getPrivacidad() {
 		return privacidad;
 	}
 
-	public void setPrivacidad(Enum<Privacidad> privacidad) {
+	public void setPrivacidad(String privacidad) {
 		this.privacidad = privacidad;
 	}
 
@@ -88,11 +91,11 @@ public class RutaDTO {
 		this.recorrido = recorrido;
 	}
 
-	public Enum<Formato> getFormato() {
+	public String getFormato() {
 		return formato;
 	}
 
-	public void setFormato(Enum<Formato> formato) {
+	public void setFormato(String formato) {
 		this.formato = formato;
 	}
 
@@ -104,11 +107,11 @@ public class RutaDTO {
 		this.distancia = distancia;
 	}
 
-	public Enum<Dificultad> getDificultad() {
+	public String getDificultad() {
 		return dificultad;
 	}
 
-	public void setDificultad(Enum<Dificultad> dificultad) {
+	public void setDificultad(String dificultad) {
 		this.dificultad = dificultad;
 	}
 

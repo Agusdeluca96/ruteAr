@@ -1,33 +1,29 @@
-package model;
+package dto;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import model.Usuario;
 
-import javax.persistence.*;
-
-@Entity(name = "nota")
-public class Nota {
-	@Id
-	@GeneratedValue
-	@Column(name = "nota_id")
+public class NotaDTO {
 	private Long id;
-	private Enum<Categoria> categoria;
+	private String categoria;
 	private String descripcion;
-	@ManyToOne(optional = false)
-	@JoinColumn(name="usuario_id")
 	private Usuario autor;
 
-	public Nota() {
-		super();
+	public NotaDTO() {
 	}
-	
-	public Nota(Enum<Categoria> categoria, String descripcion, Usuario autor) {
+
+	public NotaDTO(Long id) {
+		super();
+		this.id = id;
+	}
+
+	public NotaDTO(Long id, String categoria, String descripcion, Usuario autor) {
+		super();
+		this.id = id;
 		this.categoria = categoria;
 		this.descripcion = descripcion;
 		this.autor = autor;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -36,14 +32,14 @@ public class Nota {
 		this.id = id;
 	}
 
-	public Enum<Categoria> getCategoria() {
+	public String getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(Enum<Categoria> categoria) {
+	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
-
+	
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -51,7 +47,7 @@ public class Nota {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
+	
 	public Usuario getAutor() {
 		return autor;
 	}
