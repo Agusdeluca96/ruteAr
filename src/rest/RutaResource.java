@@ -48,9 +48,8 @@ public class RutaResource {
 	public Response create(RutaDTO ruta) {
 		if (!rutaDAO.isCreated(ruta)) {
 			rutaDAO.create(ruta);
-			return Response.status(Response.Status.CREATED).entity("Ruta creada con exito").build();
+			return Response.status(Response.Status.CREATED).build();
 		} else {
-			System.out.println("Ya existe esa ruta");
 			return Response.status(Response.Status.CONFLICT).build();
 		}
 	}
@@ -76,7 +75,7 @@ public class RutaResource {
 		Ruta ruta = (Ruta) rutaDAO.find(id);
 		if (ruta != null) {
 			rutaDAO.delete(ruta);
-			return Response.status(Response.Status.ACCEPTED).entity("Ruta eliminada con exito").build();
+			return Response.noContent().build();
 		} else {
 			return Response.status(Response.Status.NOT_FOUND).entity("No existe una ruta con ese Id").build();
 		}
@@ -97,7 +96,7 @@ public class RutaResource {
 				Nota nota = notaDAO.getByDescrip(notaDTO.getDescripcion());
 				ruta.addNota(nota);
 				rutaDAO.update(ruta);
-				return Response.status(Response.Status.CREATED).entity("Nota creada con exito").build();
+				return Response.status(Response.Status.CREATED).build();
 			//}
 		} else {
 			return Response.status(Response.Status.CONFLICT).entity("Ruta inexistente").build();

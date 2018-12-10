@@ -67,73 +67,83 @@ public class FactoryDTO {
 		String dificultad;
 		String privacidad;
 		String formato;
-		if (ruta.getPrivacidad() == Privacidad.PRIVADA){
+		if (ruta.getPrivacidad() == Privacidad.PRIVADA) {
 			privacidad = "PRIVADA";
-		}else {
+		} else {
 			privacidad = "PUBLICA";
 		}
-		if(ruta.getFormato() == Formato.CIRCULAR) {
+		if (ruta.getFormato() == Formato.CIRCULAR) {
 			formato = "CIRCULAR";
-		}else {
+		} else {
 			formato = "SOLO_IDA";
 		}
 		String rutaDificultad = ruta.getDificultad().toString();
 		switch (rutaDificultad) {
-        case "FACIL":  dificultad = "FACIL";
-                 break;
-        case "MODERADO":  dificultad = "MODERADO";
-                 break;
-        case "DIFICIL":  dificultad = "DIFICIL";
-                 break;
-        case "MUY_DIFICIL":  dificultad = "MUY_DIFICIL";
-                 break;
-        default: dificultad = "SOLO_EXPERTOS";
-                 break;
+		case "FACIL":
+			dificultad = "FACIL";
+			break;
+		case "MODERADO":
+			dificultad = "MODERADO";
+			break;
+		case "DIFICIL":
+			dificultad = "DIFICIL";
+			break;
+		case "MUY_DIFICIL":
+			dificultad = "MUY_DIFICIL";
+			break;
+		default:
+			dificultad = "SOLO_EXPERTOS";
+			break;
 		}
 		RutaDTO rutaDTO = new RutaDTO(ruta.getId(), ruta.getNombre(), ruta.getDescripcion(), privacidad,
-				ruta.getRecorrido(), formato, ruta.getDistancia(), dificultad, ruta.getTiempo(),
-				ruta.getFecha(), ruta.getFotos(), null, ruta.getActividad());
+				ruta.getRecorrido(), formato, ruta.getDistancia(), dificultad, ruta.getTiempo(), ruta.getFecha(),
+				ruta.getFotos(), null, ruta.getActividad());
 		if (completo) {
 			// rutaDTO.setCalificaciones(this.convertToCalificacionesArrayListDTO(ruta.getCalificaciones(),
 			// completo));
 		}
 		return rutaDTO;
 	}
-	
+
 	public Ruta convertToRuta(RutaDTO rutaDTO, Usuario usuario, Actividad actividad) {
 		Enum<Dificultad> dificultad;
 		Enum<Privacidad> privacidad;
 		Enum<Formato> formato;
-		if (rutaDTO.getPrivacidad() == "PRIVADA"){
+		if (rutaDTO.getPrivacidad() == "PRIVADA") {
 			privacidad = Privacidad.PRIVADA;
-		}else {
+		} else {
 			privacidad = Privacidad.PUBLICA;
 		}
-		if(rutaDTO.getFormato() == "CIRCULAR") {
+		if (rutaDTO.getFormato() == "CIRCULAR") {
 			formato = Formato.CIRCULAR;
-		}else {
+		} else {
 			formato = Formato.SOLO_IDA;
 		}
 		String rutaDTODificultad = rutaDTO.getDificultad();
 		switch (rutaDTODificultad) {
-        case "FACIL":  dificultad = Dificultad.FACIL;
-                 break;
-        case "MODERADO":  dificultad = Dificultad.MODERADO;
-                 break;
-        case "DIFICIL":  dificultad = Dificultad.DIFICIL;
-                 break;
-        case "MUY_DIFICIL":  dificultad = Dificultad.MUY_DIFICIL;
-                 break;
-        default: dificultad = Dificultad.SOLO_EXPERTOS;
-                 break;
+		case "FACIL":
+			dificultad = Dificultad.FACIL;
+			break;
+		case "MODERADO":
+			dificultad = Dificultad.MODERADO;
+			break;
+		case "DIFICIL":
+			dificultad = Dificultad.DIFICIL;
+			break;
+		case "MUY_DIFICIL":
+			dificultad = Dificultad.MUY_DIFICIL;
+			break;
+		default:
+			dificultad = Dificultad.SOLO_EXPERTOS;
+			break;
 		}
-		Ruta ruta = new Ruta(rutaDTO.getNombre(), rutaDTO.getDescripcion(), privacidad,
-				rutaDTO.getRecorrido(), formato, rutaDTO.getDistancia(), dificultad, rutaDTO.getTiempo(),
-				rutaDTO.getFecha(), rutaDTO.getFotos(), usuario, actividad);
-		//if (completo) {
-			// rutaDTO.setCalificaciones(this.convertToCalificacionesArrayListDTO(ruta.getCalificaciones(),
-			// completo));
-		//}
+		Ruta ruta = new Ruta(rutaDTO.getNombre(), rutaDTO.getDescripcion(), privacidad, rutaDTO.getRecorrido(), formato,
+				rutaDTO.getDistancia(), dificultad, rutaDTO.getTiempo(), rutaDTO.getFecha(), rutaDTO.getFotos(),
+				usuario, actividad);
+		// if (completo) {
+		// rutaDTO.setCalificaciones(this.convertToCalificacionesArrayListDTO(ruta.getCalificaciones(),
+		// completo));
+		// }
 		return ruta;
 	}
 
@@ -178,14 +188,14 @@ public class FactoryDTO {
 	}
 
 	public Rol convertToRol(RolDTO rolDTO) {
-  if (rolDTO.getDescripcion() == "Usuario basico del sistema") {
-   Basico rol = new Basico(rolDTO.getDescripcion());
-   return rol;
-  } else {
-   Administrador rol = new Administrador(rolDTO.getDescripcion());
-   return rol;
-  }
- }
+		if (rolDTO.getDescripcion() == "Usuario basico del sistema") {
+			Basico rol = new Basico(rolDTO.getDescripcion());
+			return rol;
+		} else {
+			Administrador rol = new Administrador(rolDTO.getDescripcion());
+			return rol;
+		}
+	}
 
 	// Metodos para entidad Calificacion
 	// Convertir de Model en DTO
@@ -211,19 +221,22 @@ public class FactoryDTO {
 				(calificacionDTO.getUsuario()), this.convertToRol(calificacionDTO.getUsuario().getRol())));
 		return calificacion;
 	}
-	
-	//Metodos para entidad Nota
-	//Convertir de DTO en Model
+
+	// Metodos para entidad Nota
+	// Convertir de DTO en Model
 	public Nota convertToNota(NotaDTO notaDTO, Usuario usuario) {
 		Enum<Categoria> categoria;
 		String notaDTOCategoria = notaDTO.getCategoria();
 		switch (notaDTOCategoria) {
-        case "DENUNCIA":  categoria = Categoria.DENUNCIA;
-                 break;
-        case "ALERTA":  categoria = Categoria.ALERTA;
-                 break;
-        default: categoria = Categoria.OPINION;
-                 break;
+		case "DENUNCIA":
+			categoria = Categoria.DENUNCIA;
+			break;
+		case "ALERTA":
+			categoria = Categoria.ALERTA;
+			break;
+		default:
+			categoria = Categoria.OPINION;
+			break;
 		}
 		Nota nota = new Nota(categoria, notaDTO.getDescripcion(), usuario);
 		return nota;

@@ -132,18 +132,18 @@ public class UsuarioResource {
 	}
 
 	@GET
- @Path("{id}/rutasAgregadas")
- @Produces(MediaType.APPLICATION_JSON)
- public Response findAddedRoutes(@PathParam("id") Long id) {
-  UsuarioDTO usuario = usuarioDAO.findComplete(id);
-  if (usuarioDAO.isCreated(usuario)) {
-   List<RutaDTO> rutasAgregadas = usuario.getRutasAgregadas();
-   return Response.ok().entity(rutasAgregadas).build();
-  } else {
-   mensaje = "No se encontró el usuario";
-   return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
-  }
- }
+	@Path("{id}/rutasAgregadas")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findAddedRoutes(@PathParam("id") Long id) {
+		UsuarioDTO usuario = usuarioDAO.findComplete(id);
+		if (usuarioDAO.isCreated(usuario)) {
+			List<RutaDTO> rutasAgregadas = usuario.getRutasAgregadas();
+			return Response.ok().entity(rutasAgregadas).build();
+		} else {
+			mensaje = "No se encontró el usuario";
+			return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
+		}
+	}
 
 	@GET
 	@Path("{id}/rutasRecorridas")

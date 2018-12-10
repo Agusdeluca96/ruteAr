@@ -61,20 +61,20 @@ public class Main {
 				new Date(), new ArrayList<Foto>(), usuarioBasico1, motociclismo);
 		FactoryDAO.getFactoryDAO().getRutaDAO().create(ruta);
 		// usuarioBasico1.addRutaAgregada(ruta);
-		usuarioBasico1.addRutaRecorrida(ruta);
+		// usuarioBasico1.addRutaRecorrida(ruta);
 		// FactoryDAO.getFactoryDAO().getUsuarioDAO().update(usuarioBasico1);
 
 		Ruta ruta2 = new Ruta("Ruta 36", "Carretera de Argentina que se extiende desde Cordoba hasta Rosario",
 				Privacidad.PUBLICA, "/files/r04593848.kml", Formato.SOLO_IDA, 5194.00, Dificultad.DIFICIL, 52.5,
 				new Date(), new ArrayList<Foto>(), usuarioBasico1, motociclismo);
-		usuarioBasico1.addRutaAgregada(ruta2);
+		// usuarioBasico1.addRutaAgregada(ruta2);
 		FactoryDAO.getFactoryDAO().getRutaDAO().create(ruta2);
 
 		Ruta ruta3 = new Ruta("Ruta 11",
 				"Carretera de Argentina que se extiende desde Capital Federal hasta Mar de Ajo", Privacidad.PUBLICA,
 				"/files/r04593848.kml", Formato.SOLO_IDA, 5194.00, Dificultad.DIFICIL, 52.5, new Date(),
 				new ArrayList<Foto>(), usuarioBasico1, motociclismo);
-		usuarioBasico1.addRutaRecorrida(ruta3);
+		// usuarioBasico1.addRutaRecorrida(ruta3);
 		FactoryDAO.getFactoryDAO().getRutaDAO().create(ruta3);
 
 		// Se recuperan todas las actividades del sistema y se listan en pantalla
