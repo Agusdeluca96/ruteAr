@@ -54,28 +54,29 @@ public class Main {
 				Sexo.MASCULINO, "rodripait@gmail.com", rolBasico);
 		FactoryDAO.getFactoryDAO().getUsuarioDAO().create(usuarioBasico2);
 
-		// El usuario basico creado agrega una ruta al sistema
-		Ruta ruta = new Ruta("Ruta Nacional 40",
+		// El usuario basico 1 agrega una ruta al sistema
+		Ruta ruta1 = new Ruta("Ruta Nacional 40",
 				"Carretera de Argentina cuyo recorrido se extiende desde el Cabo Vírgenes, Santa Cruz hasta  La Quiaca, en Jujuy",
 				Privacidad.PUBLICA, "/files/r04593848.kml", Formato.SOLO_IDA, 5194.00, Dificultad.DIFICIL, 52.5,
 				new Date(), new ArrayList<Foto>(), usuarioBasico1, motociclismo);
-		FactoryDAO.getFactoryDAO().getRutaDAO().create(ruta);
-		// usuarioBasico1.addRutaAgregada(ruta);
-		// usuarioBasico1.addRutaRecorrida(ruta);
-		// FactoryDAO.getFactoryDAO().getUsuarioDAO().update(usuarioBasico1);
+		FactoryDAO.getFactoryDAO().getRutaDAO().create(ruta1);
 
+		// El usuario basico 2 agrega una ruta al sistema
 		Ruta ruta2 = new Ruta("Ruta 36", "Carretera de Argentina que se extiende desde Cordoba hasta Rosario",
 				Privacidad.PUBLICA, "/files/r04593848.kml", Formato.SOLO_IDA, 5194.00, Dificultad.DIFICIL, 52.5,
-				new Date(), new ArrayList<Foto>(), usuarioBasico1, motociclismo);
-		// usuarioBasico1.addRutaAgregada(ruta2);
+				new Date(), new ArrayList<Foto>(), usuarioBasico2, motociclismo);
 		FactoryDAO.getFactoryDAO().getRutaDAO().create(ruta2);
 
+		// El usuario basico 1 agrega otra ruta al sistema
 		Ruta ruta3 = new Ruta("Ruta 11",
 				"Carretera de Argentina que se extiende desde Capital Federal hasta Mar de Ajo", Privacidad.PUBLICA,
 				"/files/r04593848.kml", Formato.SOLO_IDA, 5194.00, Dificultad.DIFICIL, 52.5, new Date(),
 				new ArrayList<Foto>(), usuarioBasico1, motociclismo);
-		// usuarioBasico1.addRutaRecorrida(ruta3);
 		FactoryDAO.getFactoryDAO().getRutaDAO().create(ruta3);
+		
+		// Agrego la ruta 2 como recorrida para el usuario basico 1
+		usuarioBasico1.addRutaRecorrida(ruta2);
+		FactoryDAO.getFactoryDAO().getUsuarioDAO().update(usuarioBasico1);
 
 		// Se recuperan todas las actividades del sistema y se listan en pantalla
 		List<Actividad> actividades = FactoryDAO.getFactoryDAO().getActividadDAO().listAll();
