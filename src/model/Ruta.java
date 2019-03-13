@@ -208,5 +208,15 @@ public class Ruta {
 	public void setActividad(Actividad actividad) {
 		this.actividad = actividad;
 	}
+	
+	public boolean isRatedByUser(Usuario usuario) {
+		Iterator<Calificacion> it = this.calificaciones.iterator();
+		while(it.hasNext()) {
+			if(it.next().getUsuario().getId() == usuario.getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

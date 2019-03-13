@@ -7,10 +7,13 @@ import javax.ws.rs.core.*;
 
 import dao.FactoryDAO;
 import dao.bi.*;
+import dto.CalificacionDTO;
 import dto.NotaDTO;
 import dto.RutaDTO;
+import model.Calificacion;
 import model.Nota;
 import model.Ruta;
+import model.Usuario;
 
 @Path("/ruta")
 
@@ -21,6 +24,8 @@ public class RutaResource {
 	Request request;
 	private BIRutaDAO rutaDAO = FactoryDAO.getFactoryDAO().getRutaDAO();
 	private BINotaDAO notaDAO = FactoryDAO.getFactoryDAO().getNotaDAO();
+	private BICalificacionDAO calificacionDAO = FactoryDAO.getFactoryDAO().getCalificacionDAO();
+	private BIUsuarioDAO usuarioDAO = FactoryDAO.getFactoryDAO().getUsuarioDAO();
 
 	@GET
 	@Path("/listAll")
@@ -98,6 +103,27 @@ public class RutaResource {
 				rutaDAO.update(ruta);
 				return Response.status(Response.Status.CREATED).build();
 			//}
+		} else {
+			return Response.status(Response.Status.CONFLICT).entity("Ruta inexistente").build();
+		}
+	}
+	
+	@POST
+	@Path("/{id}/calificacion")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response addRate(@PathParam("id") Long id, CalificacionDTO calificacionDTO) {
+		Ruta ruta = (Ruta) rutaDAO.find(id);
+		Usuario usuario = (Usuario) usuarioDAO.find(calificacionDTO.getUsuario().getId());
+		if (ruta != null) {
+			if(!ruta.isRatedByUser(usuario)) {
+				calificacionDAO.create(calificacionDTO);
+				ruta.addCalificacion(calificacion);
+				rutaDAO.update(ruta);
+				return Response.status(Response.Status.CREATED).build();
+			}else {
+				return Response.status(Response.Status.CONFLICT).entity("Esta ruta ya fue puntuada por el usuario").build();
+			}
 		} else {
 			return Response.status(Response.Status.CONFLICT).entity("Ruta inexistente").build();
 		}

@@ -8,7 +8,11 @@ import dao.FactoryDAO;
 import dao.bi.BICalificacionDAO;
 import dto.CalificacionDTO;
 import dto.FactoryDTO;
+import dto.RutaDTO;
+import model.Actividad;
 import model.Calificacion;
+import model.Nota;
+import model.Ruta;
 import model.Usuario;
 
 public class HibernateCalificacionDAO extends HibernateGenericDAO<Calificacion> implements BICalificacionDAO {
@@ -42,11 +46,20 @@ public class HibernateCalificacionDAO extends HibernateGenericDAO<Calificacion> 
 	}
 
 	@Override
-	public void create(CalificacionDTO calificacionDTO) {
+	public Long create(CalificacionDTO calificacionDTO) {
 		Usuario usuario = (Usuario) FactoryDAO.getFactoryDAO().getUsuarioDAO()
 				.find(calificacionDTO.getUsuario().getId());
 		calificacionDTO.setUsuario(FactoryDTO.getFactoryDTO().convertToUsuarioDTO(usuario, false));
 		Calificacion calificacion = FactoryDTO.getFactoryDTO().convertToCalificacion(calificacionDTO);
 		super.create(calificacion);
+		return calificacion.getId();
+	}
+
+	@Override
+	public Calificacion getByUserAndRoute(Usuario usuario, Ruta ruta) {
+		Query q = this.getEntityManager().createQuery("SELECT c FROM calificacion c WHERE c.ruta = :ruta AND c.usuario = :usuario");
+		q.setParameter("ruta", ruta);
+		q.setParameter("usuario", usuario);
+		return (Calificacion) q.getSingleResult();
 	}
 }
