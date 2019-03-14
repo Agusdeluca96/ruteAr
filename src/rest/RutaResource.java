@@ -31,7 +31,8 @@ public class RutaResource {
 	@Path("/listAll")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<RutaDTO> listAll() {
-		return rutaDAO.listAllComplete();
+		List<RutaDTO> rutas = rutaDAO.listAllComplete();
+		return rutas;
 	}
 
 	@GET
@@ -85,7 +86,7 @@ public class RutaResource {
 			return Response.status(Response.Status.NOT_FOUND).entity("No existe una ruta con ese Id").build();
 		}
 	}
-	
+
 	@POST
 	@Path("/{id}/nota")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -93,39 +94,31 @@ public class RutaResource {
 	public Response addNote(@PathParam("id") Long id, NotaDTO notaDTO) {
 		Ruta ruta = (Ruta) rutaDAO.find(id);
 		if (ruta != null) {
-			//Nota nota = notaDAO.getByDescrip(notaDTO.getDescripcion());
-			//if(nota != null) {
-				//return Response.status(Response.Status.CONFLICT).entity("Ya existe otra nota para esta ruta con una descripcion identica.").build();
-			//}else {
-				notaDAO.create(notaDTO);
-				Nota nota = notaDAO.getByDescrip(notaDTO.getDescripcion());
-				ruta.addNota(nota);
-				rutaDAO.update(ruta);
-				return Response.status(Response.Status.CREATED).build();
-			//}
+			// Nota nota = notaDAO.getByDescrip(notaDTO.getDescripcion());
+			// if(nota != null) {
+			// return Response.status(Response.Status.CONFLICT).entity("Ya existe otra nota
+			// para esta ruta con una descripcion identica.").build();
+			// }else {
+			notaDAO.create(notaDTO);
+			Nota nota = notaDAO.getByDescrip(notaDTO.getDescripcion());
+			ruta.addNota(nota);
+			rutaDAO.update(ruta);
+			return Response.status(Response.Status.CREATED).build();
+			// }
 		} else {
 			return Response.status(Response.Status.CONFLICT).entity("Ruta inexistente").build();
 		}
 	}
-	
+
 	@POST
 	@Path("/{id}/calificacion")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addRate(@PathParam("id") Long id, CalificacionDTO calificacionDTO) {
-		Ruta ruta = (Ruta) rutaDAO.find(id);
-		Usuario usuario = (Usuario) usuarioDAO.find(calificacionDTO.getUsuario().getId());
-		if (ruta != null) {
-			if(!ruta.isRatedByUser(usuario)) {
-				calificacionDAO.create(calificacionDTO);
-				ruta.addCalificacion(calificacion);
-				rutaDAO.update(ruta);
-				return Response.status(Response.Status.CREATED).build();
-			}else {
-				return Response.status(Response.Status.CONFLICT).entity("Esta ruta ya fue puntuada por el usuario").build();
-			}
+		if (!rutaDAO.rateRuta(id, calificacionDTO)) {
+			return Response.status(Response.Status.CREATED).build();
 		} else {
-			return Response.status(Response.Status.CONFLICT).entity("Ruta inexistente").build();
+			return Response.status(Response.Status.BAD_REQUEST).entity("{\"msj\": \"La Ruta no pudo ser creada, por favor intente nuevamente.\"}").build();
 		}
 	}
 }

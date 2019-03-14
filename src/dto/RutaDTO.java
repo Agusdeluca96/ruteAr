@@ -24,6 +24,8 @@ public class RutaDTO {
 	private List<Foto> fotos;
 	private Usuario creador;
 	private List<Calificacion> calificaciones;
+	private Float calificacionPromedio;
+	private Integer cantUsuariosRecorrieron;
 	private List<Nota> notas;
 	private Actividad actividad;
 
@@ -33,7 +35,7 @@ public class RutaDTO {
 
 	public RutaDTO(Long id, String nombre, String descripcion, String privacidad, String recorrido,
 			String formato, Double distancia, String dificultad, Double tiempo, Date fecha,
-			List<Foto> fotos, Usuario creador, Actividad actividad) {
+			List<Foto> fotos, Usuario creador, Actividad actividad, Float calificacionPromedio, Integer cantUsuariosRecorrieron) {
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -47,6 +49,8 @@ public class RutaDTO {
 		this.fotos = fotos;
 		this.creador = creador;
 		this.actividad = actividad;
+		this.calificacionPromedio = calificacionPromedio;
+		this.cantUsuariosRecorrieron = cantUsuariosRecorrieron;
 		this.calificaciones = new ArrayList<Calificacion>();
 		this.notas = new ArrayList<Nota>();
 	}
@@ -193,4 +197,14 @@ public class RutaDTO {
 		this.actividad = actividad;
 	}
 
+	public Float getCalificacionPromedio() {
+		return calificacionPromedio;
+	}
+
+	public void setCalificacionPromedio(Float calificacionPromedio) {
+		this.calificacionPromedio = calificacionPromedio;
+	}
+
+	
+	
 }

@@ -3,6 +3,7 @@ package dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.FactoryDAO;
 import model.*;
 
 public class FactoryDTO {
@@ -97,7 +98,7 @@ public class FactoryDTO {
 		}
 		RutaDTO rutaDTO = new RutaDTO(ruta.getId(), ruta.getNombre(), ruta.getDescripcion(), privacidad,
 				ruta.getRecorrido(), formato, ruta.getDistancia(), dificultad, ruta.getTiempo(), ruta.getFecha(),
-				ruta.getFotos(), null, ruta.getActividad());
+				ruta.getFotos(), null, ruta.getActividad(), ruta.getCalificacionPromedio(), FactoryDAO.getFactoryDAO().getRutaDAO().cantUsuariosRecorrieron(ruta));
 		if (completo) {
 			// rutaDTO.setCalificaciones(this.convertToCalificacionesArrayListDTO(ruta.getCalificaciones(),
 			// completo));

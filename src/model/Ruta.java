@@ -176,13 +176,17 @@ public class Ruta {
 		this.calificaciones = calificaciones;
 	}
 
-	public Float getCalificacion() {
-		Iterator<Calificacion> it = this.calificaciones.iterator();
-		int total = 0;
-		while (it.hasNext()) {
-			total += it.next().getValor();
+	public Float getCalificacionPromedio() {
+		if (this.calificaciones.isEmpty()) {
+			return (float) 0;
+		} else {			
+			Iterator<Calificacion> it = this.calificaciones.iterator();
+			int total = 0;
+			while (it.hasNext()) {
+				total += it.next().getValor();
+			}
+			return (float) total / this.calificaciones.size();
 		}
-		return (float) (total / this.calificaciones.size());
 	}
 
 	public void addCalificacion(Calificacion calificacion) {
@@ -208,15 +212,15 @@ public class Ruta {
 	public void setActividad(Actividad actividad) {
 		this.actividad = actividad;
 	}
-	
-	public boolean isRatedByUser(Usuario usuario) {
-		Iterator<Calificacion> it = this.calificaciones.iterator();
-		while(it.hasNext()) {
-			if(it.next().getUsuario().getId() == usuario.getId()) {
-				return true;
-			}
-		}
-		return false;
-	}
+//	
+//	public boolean isRatedByUser(Usuario usuario) {
+//		Iterator<Calificacion> it = this.calificaciones.iterator();
+//		while(it.hasNext()) {
+//			if(it.next().getUsuario().getId() == usuario.getId()) {
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 
 }
