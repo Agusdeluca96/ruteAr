@@ -1,12 +1,10 @@
 package dto;
 
-import model.Usuario;
-
 public class NotaDTO {
 	private Long id;
 	private String categoria;
 	private String descripcion;
-	private Usuario autor;
+	private UsuarioDTO autor;
 
 	public NotaDTO() {
 	}
@@ -16,7 +14,7 @@ public class NotaDTO {
 		this.id = id;
 	}
 
-	public NotaDTO(Long id, String categoria, String descripcion, Usuario autor) {
+	public NotaDTO(Long id, String categoria, String descripcion, UsuarioDTO autor) {
 		super();
 		this.id = id;
 		this.categoria = categoria;
@@ -48,11 +46,11 @@ public class NotaDTO {
 		this.descripcion = descripcion;
 	}
 	
-	public Usuario getAutor() {
+	public UsuarioDTO getAutor() {
 		return autor;
 	}
 
-	public void setAutor(Usuario autor) {
+	public void setAutor(UsuarioDTO autor) {
 		this.autor = autor;
 	}
 

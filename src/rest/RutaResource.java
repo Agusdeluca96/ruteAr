@@ -1,19 +1,22 @@
 package rest;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
+
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+
+import com.sun.jersey.multipart.FormDataParam;
 
 import dao.FactoryDAO;
 import dao.bi.*;
 import dto.CalificacionDTO;
 import dto.NotaDTO;
 import dto.RutaDTO;
-import model.Calificacion;
-import model.Nota;
 import model.Ruta;
-import model.Usuario;
 
 @Path("/ruta")
 
@@ -23,16 +26,12 @@ public class RutaResource {
 	@Context
 	Request request;
 	private BIRutaDAO rutaDAO = FactoryDAO.getFactoryDAO().getRutaDAO();
-	private BINotaDAO notaDAO = FactoryDAO.getFactoryDAO().getNotaDAO();
-	private BICalificacionDAO calificacionDAO = FactoryDAO.getFactoryDAO().getCalificacionDAO();
-	private BIUsuarioDAO usuarioDAO = FactoryDAO.getFactoryDAO().getUsuarioDAO();
 
 	@GET
 	@Path("/listAll")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<RutaDTO> listAll() {
-		List<RutaDTO> rutas = rutaDAO.listAllComplete();
-		return rutas;
+		return rutaDAO.listAllComplete();
 	}
 
 	@GET
@@ -53,8 +52,8 @@ public class RutaResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response create(RutaDTO ruta) {
 		if (!rutaDAO.isCreated(ruta)) {
-			rutaDAO.create(ruta);
-			return Response.status(Response.Status.CREATED).build();
+			ruta = rutaDAO.create(ruta);
+			return Response.status(Response.Status.CREATED).entity(ruta).build();
 		} else {
 			return Response.status(Response.Status.CONFLICT).build();
 		}
@@ -78,12 +77,13 @@ public class RutaResource {
 	@Path("{id}")
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response remove(@PathParam("id") Long id) {
-		Ruta ruta = (Ruta) rutaDAO.find(id);
-		if (ruta != null) {
-			rutaDAO.delete(ruta);
+		if (rutaDAO.canDelete(id)) {
+			rutaDAO.delete(id);
 			return Response.noContent().build();
 		} else {
-			return Response.status(Response.Status.NOT_FOUND).entity("No existe una ruta con ese Id").build();
+			return Response.status(Response.Status.NOT_FOUND).entity(
+					"Esta Ruta no puede ser eliminada ya que posee notas, calificaciones u otros usuarios la marcaron como recorrida")
+					.build();
 		}
 	}
 
@@ -92,21 +92,28 @@ public class RutaResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addNote(@PathParam("id") Long id, NotaDTO notaDTO) {
-		Ruta ruta = (Ruta) rutaDAO.find(id);
-		if (ruta != null) {
-			// Nota nota = notaDAO.getByDescrip(notaDTO.getDescripcion());
-			// if(nota != null) {
-			// return Response.status(Response.Status.CONFLICT).entity("Ya existe otra nota
-			// para esta ruta con una descripcion identica.").build();
-			// }else {
-			notaDAO.create(notaDTO);
-			Nota nota = notaDAO.getByDescrip(notaDTO.getDescripcion());
-			ruta.addNota(nota);
-			rutaDAO.update(ruta);
+		if (rutaDAO.addNotaRuta(id, notaDTO)) {
 			return Response.status(Response.Status.CREATED).build();
-			// }
 		} else {
-			return Response.status(Response.Status.CONFLICT).entity("Ruta inexistente").build();
+			return Response.status(Response.Status.BAD_REQUEST)
+					.entity("{\"msj\": \"La Nota no pudo ser creada, por favor intente nuevamente.\"}").build();
+		}
+	}
+	
+	@POST
+	@Path("/{id}/foto")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	public Response addFoto(@PathParam("id") Long id, @FormDataParam("foto") File fileInputStream) {
+		try {
+			byte[] foto = Files.readAllBytes(fileInputStream.toPath());
+			if (rutaDAO.addFotoRuta(id, foto)) {
+				return Response.status(Response.Status.CREATED).build();
+			} else {
+				return Response.status(Response.Status.BAD_REQUEST).build();
+			}
+		} catch (IOException e) {
+			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
 	}
 
@@ -115,10 +122,40 @@ public class RutaResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addRate(@PathParam("id") Long id, CalificacionDTO calificacionDTO) {
-		if (!rutaDAO.rateRuta(id, calificacionDTO)) {
+		if (rutaDAO.rateRuta(id, calificacionDTO)) {
 			return Response.status(Response.Status.CREATED).build();
 		} else {
-			return Response.status(Response.Status.BAD_REQUEST).entity("{\"msj\": \"La Ruta no pudo ser creada, por favor intente nuevamente.\"}").build();
+			return Response.status(Response.Status.BAD_REQUEST)
+					.entity("{\"msj\": \"La Calificacion no pudo ser creada, por favor intente nuevamente.\"}").build();
+		}
+	}
+	
+	@POST
+	@Path("/{id}/kml")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	public Response addKml(@PathParam("id") Long id, @FormDataParam("foto") File fileInputStream) {
+		try {
+			byte[] kml = Files.readAllBytes(fileInputStream.toPath());
+			if (rutaDAO.setRecorridoRuta(id, kml)) {
+				return Response.status(Response.Status.CREATED).build();
+			} else {
+				return Response.status(Response.Status.BAD_REQUEST).build();
+			}
+		} catch (IOException e) {
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
+	}
+	
+	@GET
+	@Path("/{id}/kml")
+	@Produces(MediaType.TEXT_PLAIN)
+	public Response kmlget(@PathParam("id") Long id){
+		RutaDTO ruta = rutaDAO.findComplete(id);
+		if (ruta.getRecorrido() != null){
+			return Response.ok().entity(ruta.getRecorrido()).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 	}
 }

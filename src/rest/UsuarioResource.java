@@ -158,6 +158,44 @@ public class UsuarioResource {
 			return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
 		}
 	}
+	
+	@GET
+	@Path("{id}/rutasDescubrir")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findToDiscoverRoutes(@PathParam("id") Long id) {
+		UsuarioDTO usuario = usuarioDAO.findComplete(id);
+		if (usuarioDAO.isCreated(usuario)) {
+			List<RutaDTO> rutasRecorridas = usuarioDAO.listAllRoutesToDiscover(usuario);
+			return Response.ok().entity(rutasRecorridas).build();
+		} else {
+			mensaje = "No se encontró el usuario";
+			return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
+		}
+	}
+
+	@POST
+	@Path("/{id}/recorrerRuta")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response addKnownRoute(@PathParam("id") Long id, RutaDTO rutaDTO) {
+		if (!usuarioDAO.hasKnownRoute(id, rutaDTO.getId())) {
+			usuarioDAO.addKnownRoute(id, rutaDTO);
+			return Response.status(Response.Status.CREATED).build();
+		} else {
+			return Response.status(Response.Status.CONFLICT).build();
+		}
+	}
+
+	@GET
+	@Path("{id}/isRecorrida/{idRuta}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response isRecorrida(@PathParam("id") Long id, @PathParam("idRuta") Long idRuta) {
+		if (usuarioDAO.hasKnownRoute(id, idRuta)) {
+			return Response.ok().entity(true).build();
+		} else {
+			return Response.ok().entity(false).build();
+		}
+	}
 
 	@GET
 	@Path("{id}/completo")

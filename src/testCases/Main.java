@@ -1,6 +1,5 @@
 package testCases;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 
@@ -16,9 +15,9 @@ public class Main {
 		Administrador rolAdmin = new Administrador("Administrador");
 		FactoryDAO.getFactoryDAO().getRolDAO().create(rolAdmin);
 
-		Usuario admin = new Usuario("Agusdeluca96", "puntito", "De Luca", "Agustin", "14b N'959", new Date(),
+		Usuario usuarioAdmin = new Usuario("Agusdeluca96", "puntito", "De Luca", "Agustin", "14b N'959", new Date(),
 				Sexo.MASCULINO, "agusdeluca96@gmail.com", rolAdmin);
-		FactoryDAO.getFactoryDAO().getUsuarioDAO().create(admin);
+		FactoryDAO.getFactoryDAO().getUsuarioDAO().create(usuarioAdmin);
 
 		// El usuario administrador creado agrega una serie de actividades al sistema
 		Actividad motociclismo = new Actividad("Motociclismo", "Motociclismo");
@@ -57,23 +56,23 @@ public class Main {
 		// El usuario basico 1 agrega una ruta al sistema
 		Ruta ruta1 = new Ruta("Ruta Nacional 40",
 				"Carretera de Argentina cuyo recorrido se extiende desde el Cabo Vírgenes, Santa Cruz hasta  La Quiaca, en Jujuy",
-				Privacidad.PUBLICA, "/files/r04593848.kml", Formato.SOLO_IDA, 5194.00, Dificultad.DIFICIL, 52.5,
-				new Date(), new ArrayList<Foto>(), usuarioBasico1, motociclismo);
+				Privacidad.PUBLICA, Formato.SOLO_IDA, 5194.00, Dificultad.DIFICIL, 52.5, new Date(), null, null,
+				usuarioBasico1, motociclismo);
 		FactoryDAO.getFactoryDAO().getRutaDAO().create(ruta1);
 
 		// El usuario basico 2 agrega una ruta al sistema
 		Ruta ruta2 = new Ruta("Ruta 36", "Carretera de Argentina que se extiende desde Cordoba hasta Rosario",
-				Privacidad.PUBLICA, "/files/r04593848.kml", Formato.SOLO_IDA, 5194.00, Dificultad.DIFICIL, 52.5,
-				new Date(), new ArrayList<Foto>(), usuarioBasico2, motociclismo);
+				Privacidad.PUBLICA, Formato.SOLO_IDA, 5194.00, Dificultad.DIFICIL, 52.5, new Date(), null, null,
+				usuarioBasico2, motociclismo);
 		FactoryDAO.getFactoryDAO().getRutaDAO().create(ruta2);
 
 		// El usuario basico 1 agrega otra ruta al sistema
 		Ruta ruta3 = new Ruta("Ruta 11",
 				"Carretera de Argentina que se extiende desde Capital Federal hasta Mar de Ajo", Privacidad.PUBLICA,
-				"/files/r04593848.kml", Formato.SOLO_IDA, 5194.00, Dificultad.DIFICIL, 52.5, new Date(),
-				new ArrayList<Foto>(), usuarioBasico1, motociclismo);
+				Formato.SOLO_IDA, 5194.00, Dificultad.DIFICIL, 52.5, new Date(), null, null, usuarioBasico1,
+				motociclismo);
 		FactoryDAO.getFactoryDAO().getRutaDAO().create(ruta3);
-		
+
 		// Agrego la ruta 2 como recorrida para el usuario basico 1
 		usuarioBasico1.addRutaRecorrida(ruta2);
 		FactoryDAO.getFactoryDAO().getUsuarioDAO().update(usuarioBasico1);
@@ -88,7 +87,7 @@ public class Main {
 		System.out.println(rutaRecuperada.getDificultad());
 
 		// Probando git
-		
+
 		// Se crean 2 calificaciones
 		/*
 		 * Calificacion calificacion1 = new Calificacion(5, usuarioBasico1);
@@ -103,5 +102,17 @@ public class Main {
 		 * rutaRecuperada.addCalificacion(calificacion2);
 		 * FactoryDAO.getFactoryDAO().getRutaDAO().update(rutaRecuperada);
 		 */
+		
+		// Se crea usuario admin para prueba
+		Usuario admin = new Usuario("admin", "admin", "Administrador", "Usuario", "", new Date(),
+				Sexo.OTRO, "", rolAdmin);
+		FactoryDAO.getFactoryDAO().getUsuarioDAO().create(admin);
+
+		
+		// Se crea usuario basico para prueba
+		Usuario basico = new Usuario("basico", "basico", "Basico", "Usuario", "", new Date(),
+				Sexo.OTRO, "", rolBasico);
+		FactoryDAO.getFactoryDAO().getUsuarioDAO().create(basico);
+
 	}
 }

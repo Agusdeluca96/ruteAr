@@ -8,10 +8,7 @@ import dao.FactoryDAO;
 import dao.bi.BICalificacionDAO;
 import dto.CalificacionDTO;
 import dto.FactoryDTO;
-import dto.RutaDTO;
-import model.Actividad;
 import model.Calificacion;
-import model.Nota;
 import model.Ruta;
 import model.Usuario;
 

@@ -2,57 +2,53 @@ package dto;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-
-import model.*;
 
 public class RutaDTO {
 	private Long id;
 	private String nombre;
 	private String descripcion;
-	//private Enum<Privacidad> privacidad;
 	private String privacidad;
-	private String recorrido;
-	//private Enum<Formato> formato;
 	private String formato;
 	private Double distancia;
-	//private Enum<Dificultad> dificultad;
 	private String dificultad;
 	private Double tiempo;
 	private Date fecha;
-	private List<Foto> fotos;
-	private Usuario creador;
-	private List<Calificacion> calificaciones;
+	private byte[] recorrido;
+	private List<byte[]> fotos;
+	private UsuarioDTO creador;
+	private List<CalificacionDTO> calificaciones;
 	private Float calificacionPromedio;
 	private Integer cantUsuariosRecorrieron;
-	private List<Nota> notas;
-	private Actividad actividad;
+	private List<NotaDTO> notas;
+	private ActividadDTO actividad;
+	private Boolean isRecorrida;
 
 	public RutaDTO() {
 		super();
 	}
 
-	public RutaDTO(Long id, String nombre, String descripcion, String privacidad, String recorrido,
-			String formato, Double distancia, String dificultad, Double tiempo, Date fecha,
-			List<Foto> fotos, Usuario creador, Actividad actividad, Float calificacionPromedio, Integer cantUsuariosRecorrieron) {
+	public RutaDTO(Long id, String nombre, String descripcion, String privacidad, byte[] recorrido,
+			List<byte[]> fotos, String formato,
+			Double distancia, String dificultad, Double tiempo, Date fecha, UsuarioDTO creador,
+			ActividadDTO actividad, Float calificacionPromedio, Integer cantUsuariosRecorrieron) {
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.privacidad = privacidad;
-		this.recorrido = recorrido;
 		this.formato = formato;
 		this.distancia = distancia;
 		this.dificultad = dificultad;
 		this.tiempo = tiempo;
 		this.fecha = fecha;
-		this.fotos = fotos;
 		this.creador = creador;
 		this.actividad = actividad;
 		this.calificacionPromedio = calificacionPromedio;
-		this.cantUsuariosRecorrieron = cantUsuariosRecorrieron;
-		this.calificaciones = new ArrayList<Calificacion>();
-		this.notas = new ArrayList<Nota>();
+		this.setCantUsuariosRecorrieron(cantUsuariosRecorrieron);
+		this.recorrido = recorrido;
+		this.fotos = fotos;
+		this.calificaciones = new ArrayList<CalificacionDTO>();
+		this.notas = new ArrayList<NotaDTO>();
 	}
 
 	public Long getId() {
@@ -85,14 +81,6 @@ public class RutaDTO {
 
 	public void setPrivacidad(String privacidad) {
 		this.privacidad = privacidad;
-	}
-
-	public String getRecorrido() {
-		return recorrido;
-	}
-
-	public void setRecorrido(String recorrido) {
-		this.recorrido = recorrido;
 	}
 
 	public String getFormato() {
@@ -135,65 +123,51 @@ public class RutaDTO {
 		this.fecha = fecha;
 	}
 
-	public List<Foto> getFotos() {
-		return fotos;
-	}
-
-	public void setFotos(List<Foto> fotos) {
-		this.fotos = fotos;
-	}
-
-	public void addFoto(Foto foto) {
-		this.fotos.add(foto);
-	}
-
-	public Usuario getCreador() {
-		return creador;
-	}
-
-	public void setCreador(Usuario creador) {
-		this.creador = creador;
-	}
-
-	public List<Calificacion> getCalificaciones() {
+	public List<CalificacionDTO> getCalificaciones() {
 		return calificaciones;
 	}
 
-	public void setCalificaciones(List<Calificacion> calificaciones) {
+	public void setCalificaciones(List<CalificacionDTO> calificaciones) {
 		this.calificaciones = calificaciones;
 	}
 
-	public Float getCalificacion() {
-		Iterator<Calificacion> it = this.calificaciones.iterator();
-		int total = 0;
-		while (it.hasNext()) {
-			total += it.next().getValor();
-		}
-		return (float) 1;
-		// return (float) (total / this.calificaciones.size());
-	}
-
-	public void addCalificacion(Calificacion calificacion) {
-		this.calificaciones.add(calificacion);
-	}
-
-	public List<Nota> getNotas() {
+	public List<NotaDTO> getNotas() {
 		return notas;
 	}
 
-	public void setNotas(List<Nota> notas) {
+	public void setNotas(List<NotaDTO> notas) {
 		this.notas = notas;
 	}
 
-	public void addNota(Nota nota) {
-		this.notas.add(nota);
+	public UsuarioDTO getCreador() {
+		return creador;
 	}
 
-	public Actividad getActividad() {
+	public void setCreador(UsuarioDTO creador) {
+		this.creador = creador;
+	}
+	
+	public byte[] getRecorrido() {
+		return recorrido;
+	}
+
+	public void setRecorrido(byte[] recorrido) {
+		this.recorrido = recorrido;
+	}
+
+	public List<byte[]> getFotos() {
+		return fotos;
+	}
+
+	public void setFotos(List<byte[]> fotos) {
+		this.fotos = fotos;
+	}
+
+	public ActividadDTO getActividad() {
 		return actividad;
 	}
 
-	public void setActividad(Actividad actividad) {
+	public void setActividad(ActividadDTO actividad) {
 		this.actividad = actividad;
 	}
 
@@ -205,6 +179,20 @@ public class RutaDTO {
 		this.calificacionPromedio = calificacionPromedio;
 	}
 
-	
-	
+	public Integer getCantUsuariosRecorrieron() {
+		return cantUsuariosRecorrieron;
+	}
+
+	public void setCantUsuariosRecorrieron(Integer cantUsuariosRecorrieron) {
+		this.cantUsuariosRecorrieron = cantUsuariosRecorrieron;
+	}
+
+	public Boolean getIsRecorrida() {
+		return isRecorrida;
+	}
+
+	public void setIsRecorrida(Boolean isRecorrida) {
+		this.isRecorrida = isRecorrida;
+	}
+
 }

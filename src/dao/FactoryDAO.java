@@ -8,7 +8,6 @@ public class FactoryDAO {
 	protected static BIActividadDAO actividadDAO;
 	protected static BIRolDAO rolDAO;
 	protected static BICalificacionDAO calificacionDAO;
-	protected static BIFotoDAO fotoDAO;
 	protected static BINotaDAO notaDAO;
 	protected static BIRutaDAO rutaDAO;
 	protected static BIUsuarioDAO usuarioDAO;
@@ -39,13 +38,6 @@ public class FactoryDAO {
 			calificacionDAO = new HibernateCalificacionDAO();
 		}
 		return calificacionDAO;
-	}
-
-	public BIFotoDAO getFotoDAO() {
-		if (fotoDAO == null) {
-			fotoDAO = new HibernateFotoDAO();
-		}
-		return fotoDAO;
 	}
 
 	public BINotaDAO getNotaDAO() {

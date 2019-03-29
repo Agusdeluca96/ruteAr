@@ -8,7 +8,6 @@ import javax.ws.rs.core.*;
 import dao.FactoryDAO;
 import dao.bi.*;
 import dto.RolDTO;
-import model.Rol;
 
 @Path("/rol")
 

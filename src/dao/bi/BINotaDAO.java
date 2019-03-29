@@ -5,7 +5,7 @@ import model.Nota;
 
 public interface BINotaDAO extends BIGenericDAO<Nota> {
 
-	void create(NotaDTO nota);
+	NotaDTO create(NotaDTO nota);
 	
 	public abstract Nota getByDescrip(String descrip);
 	

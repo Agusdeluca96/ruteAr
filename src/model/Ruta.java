@@ -2,11 +2,14 @@ package model;
 
 import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -23,15 +26,21 @@ public class Ruta {
 	private String nombre;
 	private String descripcion;
 	private Enum<Privacidad> privacidad;
-	private String recorrido;
 	private Enum<Formato> formato;
 	private Double distancia;
 	private Enum<Dificultad> dificultad;
 	private Double tiempo;
 	private Date fecha;
-	@OneToMany
-	@JoinColumn(name = "foto_id")
-	private List<Foto> fotos;
+	@Lob
+	private byte[] recorrido;
+	@ElementCollection
+	@CollectionTable(
+		name="fotos",
+		joinColumns=@JoinColumn(name="ruta_id")
+	)
+	@Lob
+	@Column(name="foto")
+	private List<byte[]> fotos;
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "usuario_id")
 	private Usuario creador;
@@ -49,25 +58,26 @@ public class Ruta {
 		super();
 	}
 
-	public Ruta(String nombre, String descripcion, Enum<Privacidad> privacidad, String recorrido, Enum<Formato> formato,
-			Double distancia, Enum<Dificultad> dificultad, Double tiempo, Date fecha, List<Foto> fotos, Usuario creador,
+	public Ruta(String nombre, String descripcion, Enum<Privacidad> privacidad, Enum<Formato> formato,
+			Double distancia, Enum<Dificultad> dificultad, Double tiempo, Date fecha, byte[] recorrido,
+			List<byte[]> fotos, Usuario creador,
 			Actividad actividad) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.privacidad = privacidad;
-		this.recorrido = recorrido;
 		this.formato = formato;
 		this.distancia = distancia;
 		this.dificultad = dificultad;
 		this.tiempo = tiempo;
 		this.fecha = fecha;
-		this.fotos = fotos;
 		this.creador = creador;
 		this.actividad = actividad;
 		this.calificaciones = new ArrayList<Calificacion>();
+		this.recorrido = recorrido;
+		this.fotos = fotos;
 		this.notas = new ArrayList<Nota>();
 	}
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -98,14 +108,6 @@ public class Ruta {
 
 	public void setPrivacidad(Enum<Privacidad> privacidad) {
 		this.privacidad = privacidad;
-	}
-
-	public String getRecorrido() {
-		return recorrido;
-	}
-
-	public void setRecorrido(String recorrido) {
-		this.recorrido = recorrido;
 	}
 
 	public Enum<Formato> getFormato() {
@@ -148,15 +150,23 @@ public class Ruta {
 		this.fecha = fecha;
 	}
 
-	public List<Foto> getFotos() {
+	public byte[] getRecorrido() {
+		return recorrido;
+	}
+
+	public void setRecorrido(byte[] recorrido) {
+		this.recorrido = recorrido;
+	}
+
+	public List<byte[]> getFotos() {
 		return fotos;
 	}
 
-	public void setFotos(List<Foto> fotos) {
+	public void setFotos(List<byte[]> fotos) {
 		this.fotos = fotos;
-	}
-
-	public void addFoto(Foto foto) {
+	}	
+	
+	public void addFoto(byte[] foto) {
 		this.fotos.add(foto);
 	}
 

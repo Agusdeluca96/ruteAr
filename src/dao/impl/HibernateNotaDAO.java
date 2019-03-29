@@ -16,10 +16,10 @@ public class HibernateNotaDAO extends HibernateGenericDAO<Nota> implements BINot
 	}
 	
 	@Override
-	public void create(NotaDTO notaDTO) {
+	public NotaDTO create(NotaDTO notaDTO) {
 		Usuario usuario = (Usuario) FactoryDAO.getFactoryDAO().getUsuarioDAO().find(notaDTO.getAutor().getId());
 		Nota nota = FactoryDTO.getFactoryDTO().convertToNota(notaDTO, usuario);
-		super.create(nota);
+		return FactoryDTO.getFactoryDTO().convertToNotaDTO(super.create(nota));
 	}
 	
 	public Nota getByDescrip(String descrip) {

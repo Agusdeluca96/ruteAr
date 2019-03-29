@@ -31,7 +31,7 @@ public abstract class HibernateGenericDAO<T> implements BIGenericDAO<T> {
 		this.getEntityManager().persist(t);
 		this.getEntityManager().flush();
 		tx.commit();
-		return null;
+		return t;
 	}
 
 	@Override
@@ -47,6 +47,7 @@ public abstract class HibernateGenericDAO<T> implements BIGenericDAO<T> {
 	public void delete(Object object) {
 		EntityTransaction tx = this.getEntityManager().getTransaction();
 		tx.begin();
+		object = this.getEntityManager().merge(object);
 		this.getEntityManager().remove(object);
 		tx.commit();
 	}

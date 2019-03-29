@@ -3,9 +3,7 @@ package dao.bi;
 import java.util.List;
 
 import dto.CalificacionDTO;
-import dto.RutaDTO;
 import model.Calificacion;
-import model.Nota;
 import model.Ruta;
 import model.Usuario;
 

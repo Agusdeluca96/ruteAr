@@ -22,17 +22,15 @@ public class FactoryDTO {
 
 	public UsuarioDTO convertToUsuarioDTO(Usuario usuario, boolean completo) {
 		RolDTO rolDTO = new RolDTO(usuario.getRol().getId(), usuario.getRol().getDescripcion());
-		List<RutaDTO> rutasRecorridasDTO = this.convertToRutaArrayListDTO(usuario.getRutasRecorridas(), false);
-		List<RutaDTO> rutasAgregadasDTO = this.convertToRutaArrayListDTO(usuario.getRutasAgregadas(), false);
 		UsuarioDTO usuarioDTO = new UsuarioDTO(usuario.getId(), usuario.getUsuario(), usuario.getContrasena(),
 				usuario.getApellido(), usuario.getNombre(), usuario.getDomicilio(), usuario.getFechaNacimiento(),
-				usuario.getSexo().toString(), usuario.getEmail(), rolDTO, rutasRecorridasDTO, rutasAgregadasDTO,
+				usuario.getSexo().toString(), usuario.getEmail(), rolDTO, null, null,
 				usuario.isHabilitado());
-		/*
-		 * if (completo) {
-		 * usuarioDTO.setRutasRecorridas(this.convertToRutaArrayListDTO(usuario.
-		 * getRutasRecorridas(), completo)); }
-		 */
+
+		if (completo) {
+			usuarioDTO.setRutasRecorridas(this.convertToRutaArrayListDTO(usuario.getRutasRecorridas(), false)); 
+			usuarioDTO.setRutasAgregadas(this.convertToRutaArrayListDTO(usuario.getRutasAgregadas(), false)); 
+		}
 		return usuarioDTO;
 	}
 
@@ -65,41 +63,14 @@ public class FactoryDTO {
 	}
 
 	public RutaDTO convertToRutaDTO(Ruta ruta, boolean completo) {
-		String dificultad;
-		String privacidad;
-		String formato;
-		if (ruta.getPrivacidad() == Privacidad.PRIVADA) {
-			privacidad = "PRIVADA";
-		} else {
-			privacidad = "PUBLICA";
-		}
-		if (ruta.getFormato() == Formato.CIRCULAR) {
-			formato = "CIRCULAR";
-		} else {
-			formato = "SOLO_IDA";
-		}
-		String rutaDificultad = ruta.getDificultad().toString();
-		switch (rutaDificultad) {
-		case "FACIL":
-			dificultad = "FACIL";
-			break;
-		case "MODERADO":
-			dificultad = "MODERADO";
-			break;
-		case "DIFICIL":
-			dificultad = "DIFICIL";
-			break;
-		case "MUY_DIFICIL":
-			dificultad = "MUY_DIFICIL";
-			break;
-		default:
-			dificultad = "SOLO_EXPERTOS";
-			break;
-		}
-		RutaDTO rutaDTO = new RutaDTO(ruta.getId(), ruta.getNombre(), ruta.getDescripcion(), privacidad,
-				ruta.getRecorrido(), formato, ruta.getDistancia(), dificultad, ruta.getTiempo(), ruta.getFecha(),
-				ruta.getFotos(), null, ruta.getActividad(), ruta.getCalificacionPromedio(), FactoryDAO.getFactoryDAO().getRutaDAO().cantUsuariosRecorrieron(ruta));
+		UsuarioDTO usuarioDTO = this.convertToUsuarioDTO(ruta.getCreador(), false);
+		ActividadDTO actividadDTO = this.convertToActividadDTO(ruta.getActividad());
+		RutaDTO rutaDTO = new RutaDTO(ruta.getId(), ruta.getNombre(), ruta.getDescripcion(),
+				ruta.getPrivacidad().toString(), ruta.getRecorrido(), ruta.getFotos(), ruta.getFormato().toString(), ruta.getDistancia(),
+				ruta.getDificultad().toString(), ruta.getTiempo(), ruta.getFecha(), usuarioDTO, actividadDTO,
+				ruta.getCalificacionPromedio(), FactoryDAO.getFactoryDAO().getRutaDAO().cantUsuariosRecorrieron(ruta));
 		if (completo) {
+			rutaDTO.setNotas(this.convertToNotaArrayListDTO(ruta.getNotas()));
 			// rutaDTO.setCalificaciones(this.convertToCalificacionesArrayListDTO(ruta.getCalificaciones(),
 			// completo));
 		}
@@ -107,40 +78,9 @@ public class FactoryDTO {
 	}
 
 	public Ruta convertToRuta(RutaDTO rutaDTO, Usuario usuario, Actividad actividad) {
-		Enum<Dificultad> dificultad;
-		Enum<Privacidad> privacidad;
-		Enum<Formato> formato;
-		if (rutaDTO.getPrivacidad() == "PRIVADA") {
-			privacidad = Privacidad.PRIVADA;
-		} else {
-			privacidad = Privacidad.PUBLICA;
-		}
-		if (rutaDTO.getFormato() == "CIRCULAR") {
-			formato = Formato.CIRCULAR;
-		} else {
-			formato = Formato.SOLO_IDA;
-		}
-		String rutaDTODificultad = rutaDTO.getDificultad();
-		switch (rutaDTODificultad) {
-		case "FACIL":
-			dificultad = Dificultad.FACIL;
-			break;
-		case "MODERADO":
-			dificultad = Dificultad.MODERADO;
-			break;
-		case "DIFICIL":
-			dificultad = Dificultad.DIFICIL;
-			break;
-		case "MUY_DIFICIL":
-			dificultad = Dificultad.MUY_DIFICIL;
-			break;
-		default:
-			dificultad = Dificultad.SOLO_EXPERTOS;
-			break;
-		}
-		Ruta ruta = new Ruta(rutaDTO.getNombre(), rutaDTO.getDescripcion(), privacidad, rutaDTO.getRecorrido(), formato,
-				rutaDTO.getDistancia(), dificultad, rutaDTO.getTiempo(), rutaDTO.getFecha(), rutaDTO.getFotos(),
-				usuario, actividad);
+		Ruta ruta = new Ruta(rutaDTO.getNombre(), rutaDTO.getDescripcion(), Privacidad.valueOf(rutaDTO.getPrivacidad()), Formato.valueOf(rutaDTO.getFormato()), rutaDTO.getDistancia(),
+				Dificultad.valueOf(rutaDTO.getDificultad()), rutaDTO.getTiempo(), rutaDTO.getFecha(), rutaDTO.getRecorrido(), rutaDTO.getFotos(), usuario,
+				actividad);
 		// if (completo) {
 		// rutaDTO.setCalificaciones(this.convertToCalificacionesArrayListDTO(ruta.getCalificaciones(),
 		// completo));
@@ -224,23 +164,22 @@ public class FactoryDTO {
 	}
 
 	// Metodos para entidad Nota
-	// Convertir de DTO en Model
-	public Nota convertToNota(NotaDTO notaDTO, Usuario usuario) {
-		Enum<Categoria> categoria;
-		String notaDTOCategoria = notaDTO.getCategoria();
-		switch (notaDTOCategoria) {
-		case "DENUNCIA":
-			categoria = Categoria.DENUNCIA;
-			break;
-		case "ALERTA":
-			categoria = Categoria.ALERTA;
-			break;
-		default:
-			categoria = Categoria.OPINION;
-			break;
+	// Convertir de Model en DTO
+	public List<NotaDTO> convertToNotaArrayListDTO(List<Nota> notas) {
+		List<NotaDTO> notasDTO = new ArrayList<NotaDTO>();
+		for (Nota nota : notas) {
+			notasDTO.add(this.convertToNotaDTO(nota));
 		}
-		Nota nota = new Nota(categoria, notaDTO.getDescripcion(), usuario);
-		return nota;
+		return notasDTO;
 	}
 
+	public NotaDTO convertToNotaDTO(Nota nota) {
+		return new NotaDTO(nota.getId(), nota.getCategoria().toString(), nota.getDescripcion(),
+				this.convertToUsuarioDTO(nota.getAutor(), false));
+	}
+
+	// Convertir de DTO en Model
+	public Nota convertToNota(NotaDTO notaDTO, Usuario usuario) {
+		return new Nota(Categoria.valueOf(notaDTO.getCategoria()), notaDTO.getDescripcion(), usuario);
+	}
 }

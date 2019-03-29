@@ -2,13 +2,17 @@ package dao.impl;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import dao.FactoryDAO;
 import dao.bi.BIUsuarioDAO;
 import dto.FactoryDTO;
+import dto.RutaDTO;
 import dto.UsuarioDTO;
 import model.Rol;
+import model.Ruta;
 import model.Usuario;
 
 public class HibernateUsuarioDAO extends HibernateGenericDAO<Usuario> implements BIUsuarioDAO {
@@ -79,5 +83,37 @@ public class HibernateUsuarioDAO extends HibernateGenericDAO<Usuario> implements
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public boolean hasKnownRoute(Long id, Long idRuta) {
+		try {
+			Ruta ruta = (Ruta) FactoryDAO.getFactoryDAO().getRutaDAO().find(idRuta);
+			String query = "SELECT u FROM usuario u INNER JOIN u.rutasRecorridas ruta WHERE ruta = :ruta and u.id = :id";
+			TypedQuery<Usuario> q = this.getEntityManager().createQuery(query, Usuario.class);
+			q.setParameter("ruta", ruta);
+			q.setParameter("id", id);
+			Integer cant = q.getResultList().size();
+			return cant > 0;
+		} catch (NoResultException nre) {
+			return false;
+		}
+	}
+
+	@Override
+	public void addKnownRoute(Long id, RutaDTO rutaDTO) {
+		Usuario usuario = (Usuario) this.find(id);
+		Ruta ruta = (Ruta) FactoryDAO.getFactoryDAO().getRutaDAO().find(rutaDTO.getId());
+		usuario.addRutaRecorrida(ruta);
+		this.update(usuario);
+	}
+
+	@Override
+	public List<RutaDTO> listAllRoutesToDiscover(UsuarioDTO usuarioDTO) {
+		Usuario usuario = (Usuario) this.find(usuarioDTO.getId());
+		String query = "SELECT r FROM ruta r WHERE r.creador != :usuario";
+		TypedQuery<Ruta> q = this.getEntityManager().createQuery(query, Ruta.class);
+		q.setParameter("usuario", usuario);
+		return FactoryDTO.getFactoryDTO().convertToRutaArrayListDTO(q.getResultList(), true);
 	}
 }
