@@ -11,6 +11,9 @@ import dao.bi.BIUsuarioDAO;
 import dto.FactoryDTO;
 import dto.RutaDTO;
 import dto.UsuarioDTO;
+import model.Dificultad;
+import model.Formato;
+import model.Privacidad;
 import model.Rol;
 import model.Ruta;
 import model.Usuario;
@@ -109,11 +112,41 @@ public class HibernateUsuarioDAO extends HibernateGenericDAO<Usuario> implements
 	}
 
 	@Override
-	public List<RutaDTO> listAllRoutesToDiscover(UsuarioDTO usuarioDTO) {
+	public List<RutaDTO> listAllRoutesToDiscover(UsuarioDTO usuarioDTO, String actividad, String formato, String dificultad) {
 		Usuario usuario = (Usuario) this.find(usuarioDTO.getId());
-		String query = "SELECT r FROM ruta r WHERE r.creador != :usuario";
+		String query = "SELECT DISTINCT r FROM ruta r " 
+				+ "LEFT JOIN r.actividad a "
+				+ "WHERE r.creador != :usuario "
+				+ "AND r.privacidad = :privacidad";
+		
+		if(actividad != null) {
+			query += " AND a.id = :actividadId ";
+		}
+		
+		if(formato != null) {
+			query += " AND r.formato = :formato ";
+		}
+		
+		if(dificultad != null) {
+			query += " AND r.dificultad = :dificultad ";
+		}
+
 		TypedQuery<Ruta> q = this.getEntityManager().createQuery(query, Ruta.class);
 		q.setParameter("usuario", usuario);
+		q.setParameter("privacidad", Privacidad.PUBLICA);		
+		
+		if(actividad != null) {
+			q.setParameter("actividadId", Long.valueOf(actividad));
+		}
+		
+		if(formato != null) {
+			q.setParameter("formato", Formato.valueOf(formato));
+		}
+		
+		if(dificultad != null) {
+			q.setParameter("dificultad", Dificultad.valueOf(dificultad));
+		}
+		
 		return FactoryDTO.getFactoryDTO().convertToRutaArrayListDTO(q.getResultList(), true);
 	}
 }

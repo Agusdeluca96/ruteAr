@@ -20,7 +20,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>RESTfulJersey</servlet-name>
-    <url-pattern>/*</url-pattern>
+    <url-pattern>/api/*</url-pattern>
   </servlet-mapping>
   <filter>
     <filter-name>CorsFilter</filter-name>

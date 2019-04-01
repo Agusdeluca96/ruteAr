@@ -18,8 +18,8 @@ public class RutaDTO {
 	private List<byte[]> fotos;
 	private UsuarioDTO creador;
 	private List<CalificacionDTO> calificaciones;
-	private Float calificacionPromedio;
-	private Integer cantUsuariosRecorrieron;
+	private Float puntaje;
+	private Integer usuarios;
 	private List<NotaDTO> notas;
 	private ActividadDTO actividad;
 	private Boolean isRecorrida;
@@ -31,7 +31,7 @@ public class RutaDTO {
 	public RutaDTO(Long id, String nombre, String descripcion, String privacidad, byte[] recorrido,
 			List<byte[]> fotos, String formato,
 			Double distancia, String dificultad, Double tiempo, Date fecha, UsuarioDTO creador,
-			ActividadDTO actividad, Float calificacionPromedio, Integer cantUsuariosRecorrieron) {
+			ActividadDTO actividad, Float puntaje, Integer usuarios) {
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -43,8 +43,8 @@ public class RutaDTO {
 		this.fecha = fecha;
 		this.creador = creador;
 		this.actividad = actividad;
-		this.calificacionPromedio = calificacionPromedio;
-		this.setCantUsuariosRecorrieron(cantUsuariosRecorrieron);
+		this.puntaje = puntaje;
+		this.usuarios = usuarios;
 		this.recorrido = recorrido;
 		this.fotos = fotos;
 		this.calificaciones = new ArrayList<CalificacionDTO>();
@@ -171,20 +171,20 @@ public class RutaDTO {
 		this.actividad = actividad;
 	}
 
-	public Float getCalificacionPromedio() {
-		return calificacionPromedio;
+	public Float getPuntaje() {
+		return puntaje;
 	}
 
-	public void setCalificacionPromedio(Float calificacionPromedio) {
-		this.calificacionPromedio = calificacionPromedio;
+	public void setPuntaje(Float puntaje) {
+		this.puntaje = puntaje;
 	}
 
-	public Integer getCantUsuariosRecorrieron() {
-		return cantUsuariosRecorrieron;
+	public Integer getUsuarios() {
+		return usuarios;
 	}
 
-	public void setCantUsuariosRecorrieron(Integer cantUsuariosRecorrieron) {
-		this.cantUsuariosRecorrieron = cantUsuariosRecorrieron;
+	public void setUsuarios(Integer usuarios) {
+		this.usuarios = usuarios;
 	}
 
 	public Boolean getIsRecorrida() {

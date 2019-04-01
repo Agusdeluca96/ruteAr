@@ -32,5 +32,5 @@ public interface BIUsuarioDAO extends BIGenericDAO<Usuario> {
 
 	public abstract void addKnownRoute(Long id, RutaDTO ruta);
 
-	public abstract List<RutaDTO> listAllRoutesToDiscover(UsuarioDTO usuario);
+	public abstract List<RutaDTO> listAllRoutesToDiscover(UsuarioDTO usuario, String actividad, String formato, String dificultad);
 }

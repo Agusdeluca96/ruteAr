@@ -8,7 +8,8 @@ public class Nota {
 	@GeneratedValue
 	@Column(name = "nota_id")
 	private Long id;
-	private Enum<Categoria> categoria;
+	@Enumerated(EnumType.ORDINAL)
+	private Categoria categoria;
 	private String descripcion;
 	@ManyToOne(optional = false)
 	@JoinColumn(name="usuario_id")
@@ -18,7 +19,7 @@ public class Nota {
 		super();
 	}
 	
-	public Nota(Enum<Categoria> categoria, String descripcion, Usuario autor) {
+	public Nota(Categoria categoria, String descripcion, Usuario autor) {
 		this.categoria = categoria;
 		this.descripcion = descripcion;
 		this.autor = autor;
@@ -32,11 +33,11 @@ public class Nota {
 		this.id = id;
 	}
 
-	public Enum<Categoria> getCategoria() {
+	public Categoria getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(Enum<Categoria> categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 

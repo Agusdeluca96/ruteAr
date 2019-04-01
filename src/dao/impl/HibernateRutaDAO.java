@@ -163,4 +163,17 @@ public class HibernateRutaDAO extends HibernateGenericDAO<Ruta> implements BIRut
 		}
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
+	@Override
+	public boolean deleteFoto(Long id, Integer indexFoto) {
+		Ruta ruta = (Ruta) this.find(id);
+		if (ruta != null) {
+			ruta.getFotos().remove(indexFoto);
+			super.update(ruta);
+			return true;
+		} else { 
+			return false;
+		}
+	}
+
 }

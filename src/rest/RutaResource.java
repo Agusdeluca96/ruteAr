@@ -116,6 +116,17 @@ public class RutaResource {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
 	}
+	
+	@DELETE
+	@Path("{id}/foto/{indexFoto}")
+	@Produces(MediaType.TEXT_PLAIN)
+	public Response removeFoto(@PathParam("id") Long id, @PathParam("indexFoto") Integer indexFoto) {
+		if (rutaDAO.deleteFoto(id, indexFoto)) {
+			return Response.noContent().build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+	}
 
 	@POST
 	@Path("/{id}/calificacion")

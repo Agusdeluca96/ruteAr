@@ -33,4 +33,6 @@ public interface BIRutaDAO extends BIGenericDAO<Ruta> {
 
 	boolean setRecorridoRuta(Long id, byte[] kml);
 
+	boolean deleteFoto(Long id, Integer indexFoto);
+
 }

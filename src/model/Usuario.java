@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -29,7 +31,8 @@ public class Usuario {
 	private String nombre;
 	private String domicilio;
 	private Date fechaNacimiento;
-	private Enum<Sexo> sexo;
+	@Enumerated(EnumType.ORDINAL)
+	private Sexo sexo;
 	private String email;
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "rol_id")
@@ -48,7 +51,7 @@ public class Usuario {
 	}
 
 	public Usuario(String usuario, String contrasena, String apellido, String nombre, String domicilio,
-			Date fechaNacimiento, Enum<Sexo> sexo, String email, Rol rol) {
+			Date fechaNacimiento, Sexo sexo, String email, Rol rol) {
 		this.usuario = usuario;
 		this.contrasena = contrasena;
 		this.apellido = apellido;
@@ -119,11 +122,11 @@ public class Usuario {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public Enum<Sexo> getSexo() {
+	public Sexo getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(Enum<Sexo> sexo) {
+	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
 

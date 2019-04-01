@@ -6,6 +6,8 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -25,10 +27,13 @@ public class Ruta {
 	private Long id;
 	private String nombre;
 	private String descripcion;
-	private Enum<Privacidad> privacidad;
-	private Enum<Formato> formato;
+	@Enumerated(EnumType.ORDINAL)
+	private Privacidad privacidad;
+	@Enumerated(EnumType.ORDINAL)
+	private Formato formato;
 	private Double distancia;
-	private Enum<Dificultad> dificultad;
+	@Enumerated(EnumType.ORDINAL)
+	private Dificultad dificultad;
 	private Double tiempo;
 	private Date fecha;
 	@Lob
@@ -58,8 +63,8 @@ public class Ruta {
 		super();
 	}
 
-	public Ruta(String nombre, String descripcion, Enum<Privacidad> privacidad, Enum<Formato> formato,
-			Double distancia, Enum<Dificultad> dificultad, Double tiempo, Date fecha, byte[] recorrido,
+	public Ruta(String nombre, String descripcion, Privacidad privacidad, Formato formato,
+			Double distancia, Dificultad dificultad, Double tiempo, Date fecha, byte[] recorrido,
 			List<byte[]> fotos, Usuario creador,
 			Actividad actividad) {
 		this.nombre = nombre;
@@ -102,19 +107,19 @@ public class Ruta {
 		this.descripcion = descripcion;
 	}
 
-	public Enum<Privacidad> getPrivacidad() {
+	public Privacidad getPrivacidad() {
 		return privacidad;
 	}
 
-	public void setPrivacidad(Enum<Privacidad> privacidad) {
+	public void setPrivacidad(Privacidad privacidad) {
 		this.privacidad = privacidad;
 	}
 
-	public Enum<Formato> getFormato() {
+	public Formato getFormato() {
 		return formato;
 	}
 
-	public void setFormato(Enum<Formato> formato) {
+	public void setFormato(Formato formato) {
 		this.formato = formato;
 	}
 
@@ -126,11 +131,11 @@ public class Ruta {
 		this.distancia = distancia;
 	}
 
-	public Enum<Dificultad> getDificultad() {
+	public Dificultad getDificultad() {
 		return dificultad;
 	}
 
-	public void setDificultad(Enum<Dificultad> dificultad) {
+	public void setDificultad(Dificultad dificultad) {
 		this.dificultad = dificultad;
 	}
 

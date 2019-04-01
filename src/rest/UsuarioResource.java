@@ -162,10 +162,14 @@ public class UsuarioResource {
 	@GET
 	@Path("{id}/rutasDescubrir")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findToDiscoverRoutes(@PathParam("id") Long id) {
+	public Response findToDiscoverRoutes(
+			@PathParam("id") Long id,
+			@QueryParam("actividad") String actividad, 
+			@QueryParam("formato") String formato, 
+			@QueryParam("dificultad") String dificultad) {
 		UsuarioDTO usuario = usuarioDAO.findComplete(id);
 		if (usuarioDAO.isCreated(usuario)) {
-			List<RutaDTO> rutasRecorridas = usuarioDAO.listAllRoutesToDiscover(usuario);
+			List<RutaDTO> rutasRecorridas = usuarioDAO.listAllRoutesToDiscover(usuario, actividad, formato, dificultad);
 			return Response.ok().entity(rutasRecorridas).build();
 		} else {
 			mensaje = "No se encontró el usuario";
